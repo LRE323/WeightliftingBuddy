@@ -1,8 +1,8 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import com.example.weightliftingbuddy.R
 
 class LogExerciseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

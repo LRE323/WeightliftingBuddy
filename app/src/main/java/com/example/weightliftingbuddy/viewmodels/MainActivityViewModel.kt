@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.viewmodels
 
 import androidx.lifecycle.ViewModel
 

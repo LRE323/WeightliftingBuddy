@@ -1,22 +1,13 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View.OnClickListener
-import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.weightliftingbuddy.viewmodels.MainActivityViewModel
 import com.example.weightliftingbuddy.databinding.LayoutHomePageBinding
-import com.example.weightliftingbuddy.ui.theme.WeightliftingBuddyTheme
+import com.example.weightliftingbuddy.models.Workout
 
 class MainActivity : ComponentActivity() {
     private var viewModel: MainActivityViewModel? = null
@@ -34,6 +25,7 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         setOnClickListeners()
+        Workout.getDummyWorkout().printInfo("Luis")
     }
 
     private fun setOnClickListeners() {
