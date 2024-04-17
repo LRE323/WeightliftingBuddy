@@ -29,11 +29,11 @@ class MainActivity : ComponentActivity() {
         binding?.apply {
             setContentView(this.root)
         }
-        setOnClickListeners()
     }
 
     override fun onStart() {
         super.onStart()
+        setOnClickListeners()
     }
 
     private fun setOnClickListeners() {
