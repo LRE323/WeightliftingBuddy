@@ -11,7 +11,6 @@ class Workout(
 ) {
 
     companion object {
-        private const val DEFAULT_WORKOUT_DATE_FORMAT = "EEE MMM dd"
 
         fun getDummyWorkout(): Workout {
             val listOfExercises = arrayListOf<Exercise>()
