@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View.OnClickListener
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightliftingbuddy.viewmodels.MainActivityViewModel
 import com.example.weightliftingbuddy.databinding.LayoutHomePageBinding
@@ -20,12 +21,24 @@ class MainActivity : ComponentActivity() {
         binding?.apply {
             setContentView(this.root)
         }
+        initObservers()
     }
 
     override fun onStart() {
         super.onStart()
         setOnClickListeners()
-        Workout.getDummyWorkout().printInfo("Luis")
+    }
+
+    private fun initObservers() {
+        viewModel?.apply {
+            liveDataWorkoutSelected.observe(this@MainActivity, observerWorkoutSelected)
+        }
+    }
+
+    private val observerWorkoutSelected = Observer<Workout> {
+        binding?.apply {
+            workoutDate.text = it.getFormattedWorkoutDate()
+        }
     }
 
     private fun setOnClickListeners() {
