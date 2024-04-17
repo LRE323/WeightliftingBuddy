@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Welcome to the home screen"
+            android:textAlignment="center"
             android:textSize="26dp" />
 
         <TextView
@@ -21,19 +22,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="You have no workouts. Because are you lazy and a failure."
+            android:textAlignment="center"
             android:textSize="13dp" />
 
         <View
-            android:background="@color/teal_200"
             android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+            android:layout_height="5dp"
+            android:background="@color/teal_200" />
 
         <Button
             android:id="@+id/logWorkoutScreenButton"
-            android:text="Log workout screen"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Log workout screen" />
 
     </LinearLayout>
 
