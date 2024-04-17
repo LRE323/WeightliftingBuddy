@@ -9,34 +9,21 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/textViewWelcomeMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Welcome to the home screen"
-            android:textAlignment="center"
-            android:textSize="26dp" />
-
-        <TextView
+            android:textColor="@color/white"
+            android:background="@color/purple_200"
             android:id="@+id/workoutDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:textSize="13dp"
+            android:textSize="32dp"
             tools:text="Wed, Apr 17, 2024" />
 
         <View
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/teal_200" />
-
-        <Button
-            android:id="@+id/logWorkoutScreenButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Log workout screen" />
+            android:layout_height="1dp"
+            android:background="@color/teal_700" />
 
     </LinearLayout>
 
