@@ -29,12 +29,16 @@ class MainActivity : ComponentActivity() {
         binding?.apply {
             setContentView(this.root)
         }
+        setOnClickListeners()
     }
 
     override fun onStart() {
         super.onStart()
+    }
+
+    private fun setOnClickListeners() {
         binding?.apply {
-            this.logWorkoutScreenButton.setOnClickListener(logWorkoutOnClick)
+            logWorkoutScreenButton.setOnClickListener(logWorkoutOnClick)
         }
     }
 
