@@ -1,6 +1,7 @@
 package com.example.weightliftingbuddy.models
 
 import android.util.Log
+import com.example.weightliftingbuddy.GeneralUtilities
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -22,14 +23,9 @@ class Workout(
     }
 
     fun printInfo(logTag: String = "Luis") {
-        Log.i(logTag, "------ ${getFormattedWorkoutDate()} ------")
+        Log.i(logTag, "------ ${GeneralUtilities.getFormattedWorkoutDate(workoutDate)} ------")
         listOfExercises.forEach {
             it.printInfo(logTag)
         }
-    }
-
-    fun getFormattedWorkoutDate(): String {
-        val simpleDateFormat = SimpleDateFormat(DEFAULT_WORKOUT_DATE_FORMAT)
-        return simpleDateFormat.format(workoutDate)
     }
 }
