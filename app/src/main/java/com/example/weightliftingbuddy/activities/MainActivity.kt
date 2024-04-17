@@ -1,14 +1,13 @@
 package com.example.weightliftingbuddy.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View.OnClickListener
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.weightliftingbuddy.viewmodels.MainActivityViewModel
+import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.databinding.LayoutHomePageBinding
-import com.example.weightliftingbuddy.models.Workout
+import com.example.weightliftingbuddy.viewmodels.MainActivityViewModel
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     private var viewModel: MainActivityViewModel? = null
@@ -31,24 +30,21 @@ class MainActivity : ComponentActivity() {
 
     private fun initObservers() {
         viewModel?.apply {
-            liveDataWorkoutSelected.observe(this@MainActivity, observerWorkoutSelected)
+            liveDataSelectedDate.observe(this@MainActivity, onWorkoutDateSet)
         }
     }
 
-    private val observerWorkoutSelected = Observer<Workout> {
+    private val onWorkoutDateSet = Observer<Date> {
         binding?.apply {
-            workoutDate.text = it.getFormattedWorkoutDate()
+            workoutDate.text = GeneralUtilities.getFormattedWorkoutDate(it)
         }
     }
 
     private fun setOnClickListeners() {
         binding?.apply {
-            logWorkoutScreenButton.setOnClickListener(logWorkoutOnClick)
+            workoutDate.setOnClickListener {
+                // Todo...
+            }
         }
-    }
-
-    private val logWorkoutOnClick: OnClickListener = OnClickListener {
-        val intent = Intent(this, LogExerciseActivity::class.java)
-        startActivity(intent)
     }
 }
