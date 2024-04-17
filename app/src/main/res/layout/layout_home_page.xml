@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -18,12 +18,13 @@
             android:textSize="26dp" />
 
         <TextView
+            android:id="@+id/workoutDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="You have no workouts. Because are you lazy and a failure."
             android:textAlignment="center"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            tools:text="Wed, Apr 17, 2024" />
 
         <View
             android:layout_width="match_parent"
