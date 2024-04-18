@@ -14,14 +14,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/purple_200"
             android:textAlignment="center"
-            android:textColor="@color/white"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Wed, Apr 17, 2024" />
+            tools:text="Wed Apr 17" />
 
         <View
             android:id="@+id/homePageHeaderBorder"
@@ -34,9 +32,9 @@
             app:layout_constraintTop_toBottomOf="@id/workoutDate" />
 
         <LinearLayout
-            android:background="@color/teal_700"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,15 +42,12 @@
             app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder">
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/homePageNoWorkoutMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="You have not logged a workout for this day."
+                android:layout_gravity="center_horizontal"
+                android:text="@string/no_workout_logged_message"
                 android:textAlignment="center" />
-
-
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
