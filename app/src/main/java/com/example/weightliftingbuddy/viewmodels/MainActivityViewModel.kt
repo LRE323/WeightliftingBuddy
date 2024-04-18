@@ -16,6 +16,8 @@ class MainActivityViewModel: ViewModel() {
      */
     val liveDataWorkoutForSelectedDate: MutableLiveData<Workout> = MutableLiveData()
 
+    val liveDataListOfWorkouts: MutableLiveData<ArrayList<Workout>> = MutableLiveData()
+
     init {
         // Set the value of liveDataSelectedDate to today's date by default.
         liveDataSelectedDate.apply {
