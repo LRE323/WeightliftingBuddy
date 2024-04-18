@@ -53,12 +53,16 @@ class MainActivity : ComponentActivity(), OnDateSetListener {
     private val onClickWorkoutDate: OnClickListener = OnClickListener {
         val selectedDate = viewModel?.liveDataSelectedDate?.value
         selectedDate?.apply {
-            val year = selectedDate.get(Calendar.YEAR)
-            val monthOfYear = selectedDate.get(Calendar.MONTH)
-            val dayOfMonth = selectedDate.get(Calendar.DAY_OF_MONTH)
-            val datePickerDialog = DatePickerDialog(this@MainActivity, 0, this@MainActivity, year, monthOfYear, dayOfMonth)
-            datePickerDialog.show()
+            showWorkoutDatePickerDialog(this)
         }
+    }
+
+    private fun showWorkoutDatePickerDialog(selectedDate: Calendar) {
+        val year = selectedDate.get(Calendar.YEAR)
+        val monthOfYear = selectedDate.get(Calendar.MONTH)
+        val dayOfMonth = selectedDate.get(Calendar.DAY_OF_MONTH)
+        val datePickerDialog = DatePickerDialog(this@MainActivity, 0, this@MainActivity, year, monthOfYear, dayOfMonth)
+        datePickerDialog.show()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
