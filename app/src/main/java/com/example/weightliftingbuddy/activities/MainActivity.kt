@@ -30,11 +30,11 @@ class MainActivity : ComponentActivity() {
 
     private fun initObservers() {
         viewModel?.apply {
-            liveDataSelectedDate.observe(this@MainActivity, onWorkoutDateSet)
+            liveDataSelectedDate.observe(this@MainActivity, onDateSelected)
         }
     }
 
-    private val onWorkoutDateSet = Observer<Date> {
+    private val onDateSelected = Observer<Date> {
         binding?.apply {
             workoutDate.text = GeneralUtilities.getFormattedWorkoutDate(it)
         }
