@@ -12,7 +12,6 @@ import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.databinding.LayoutHomePageBinding
 import com.example.weightliftingbuddy.viewmodels.MainActivityViewModel
 import java.util.Calendar
-import java.util.Date
 
 class MainActivity : ComponentActivity(), OnDateSetListener {
     private var viewModel: MainActivityViewModel? = null
@@ -39,9 +38,9 @@ class MainActivity : ComponentActivity(), OnDateSetListener {
         }
     }
 
-    private val onDateSelected = Observer<Date> {
+    private val onDateSelected = Observer<Calendar> {
         binding?.apply {
-            workoutDate.text = GeneralUtilities.getFormattedWorkoutDate(it)
+            workoutDate.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
         }
     }
 
@@ -60,6 +59,6 @@ class MainActivity : ComponentActivity(), OnDateSetListener {
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val calendar = Calendar.Builder().build()
         calendar.set(year, month, dayOfMonth)
-        viewModel?.liveDataSelectedDate?.value = calendar.time
+        viewModel?.liveDataSelectedDate?.value = calendar
     }
 }
