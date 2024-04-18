@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Wed Apr 17" />
+            tools:text="Wed Apr 17, 2024" />
 
         <View
             android:id="@+id/homePageHeaderBorder"
@@ -41,13 +41,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder">
 
-            <TextView
-                android:id="@+id/homePageNoWorkoutMessage"
+            <include
+                layout="@layout/no_workout_logged_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/no_workout_logged_message"
-                android:textAlignment="center" />
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
