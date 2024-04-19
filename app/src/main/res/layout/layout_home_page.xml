@@ -42,6 +42,7 @@
             app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder">
 
             <include
+                android:id="@+id/noWorkoutLoggedView"
                 layout="@layout/no_workout_logged_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
