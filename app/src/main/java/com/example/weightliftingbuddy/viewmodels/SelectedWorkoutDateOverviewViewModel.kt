@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Workout
 import java.util.Calendar
 
-class MainActivityViewModel: ViewModel() {
+class SelectedWorkoutDateOverviewViewModel: ViewModel() {
     /**
      * The current date that has been set or selected, either by default or by the user
      */

@@ -26,7 +26,7 @@
             android:exported="false"
             android:theme="@style/Theme.WeightliftingBuddy" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.SelectedWorkoutDateOverviewActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.WeightliftingBuddy" >
