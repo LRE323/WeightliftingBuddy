@@ -9,18 +9,18 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightliftingbuddy.GeneralUtilities
-import com.example.weightliftingbuddy.databinding.LayoutHomePageBinding
+import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import java.util.Calendar
 
 class SelectedWorkoutDateOverviewActivity : ComponentActivity(), OnDateSetListener {
     private var viewModel: SelectedWorkoutDateOverviewViewModel? = null
-    private var binding: LayoutHomePageBinding? = null
+    private var binding: LayoutSelectedWorkoutOverviewBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[SelectedWorkoutDateOverviewViewModel::class.java]
-        binding = LayoutHomePageBinding.inflate(layoutInflater)
+        binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
         binding?.apply {
             setContentView(this.root)
         }
