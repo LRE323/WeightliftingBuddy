@@ -2,5 +2,9 @@
     <string name="app_name">WeightliftingBuddy</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_workout_logged_message">No workout logged for this day.</string>
-    <string name="add_new_activity_button">Add new activity</string>
+
+    <string name="add_new_activity_button">Log workout</string>
+
+    <!--  ExerciseListFragment  -->
+    <string name="message_no_exercises_added">You have not added any exercises.</string>
 </resources>
