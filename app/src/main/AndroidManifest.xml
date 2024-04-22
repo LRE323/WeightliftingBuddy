@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31"
         tools:ignore="LockedOrientationActivity">
         <activity
@@ -26,12 +26,6 @@
             android:screenOrientation="sensorPortrait"
             android:name=".activities.LogExerciseActivity"
             android:exported="false" />
-        <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".activities.SelectedWorkoutDateOverviewActivity"
-            android:exported="true"
-            android:label="@string/app_name">
-        </activity>
     </application>
 
 </manifest>
