@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.LayoutActivityHomeBinding
 import com.example.weightliftingbuddy.fragments.HistoryFragment
-import com.example.weightliftingbuddy.fragments.HomeFragment
+import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment
 import com.example.weightliftingbuddy.fragments.ExerciseListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             setContentView(this.root)
             bottomNavigationView = bottomNavigation
         }
-        val homeFragment = HomeFragment()
+        val homeFragment = SelectedDateOverviewFragment()
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, homeFragment).commit()
     }
 
@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         // Identify the Fragment selected.
         when (item.itemId) {
             R.id.menuItemHome -> {
-                fragmentToShow = HomeFragment()
+                fragmentToShow = SelectedDateOverviewFragment()
             }
 
             R.id.menuItemExerciseList -> {
