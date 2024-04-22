@@ -1,11 +1,14 @@
 package com.example.weightliftingbuddy.activities
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.OnClickListener
 import android.widget.DatePicker
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightliftingbuddy.GeneralUtilities
@@ -13,7 +16,7 @@ import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewB
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import java.util.Calendar
 
-class SelectedWorkoutDateOverviewActivity : ComponentActivity(), OnDateSetListener {
+class SelectedWorkoutDateOverviewActivity : AppCompatActivity(), OnDateSetListener {
     private var viewModel: SelectedWorkoutDateOverviewViewModel? = null
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
 
@@ -47,6 +50,9 @@ class SelectedWorkoutDateOverviewActivity : ComponentActivity(), OnDateSetListen
     private fun setOnClickListeners() {
         binding?.apply {
             workoutDate.setOnClickListener(onClickWorkoutDate)
+            noWorkoutLoggedView.buttonAddNewActivity.setOnClickListener {
+                startActivity(Intent(this@SelectedWorkoutDateOverviewActivity, HomeActivity::class.java))
+            }
         }
     }
 
