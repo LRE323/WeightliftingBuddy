@@ -1,5 +1,5 @@
 package com.example.weightliftingbuddy.models
 
-class Lift(
-    var liftName: String) {
+class Exercise(
+    var exerciseName: String) {
 }
