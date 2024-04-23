@@ -2,19 +2,19 @@ package com.example.weightliftingbuddy.models
 
 import android.util.Log
 
-class Exercise(
+class ExerciseSession(
     var lift: Lift? = null,
     var listOfLiftSets: ArrayList<LiftSet>? = null) {
 
     companion object {
 
-        fun getDummyExercise(amountOfSets: Int): Exercise {
+        fun getDummyExercise(amountOfSets: Int): ExerciseSession {
             val liftSets: ArrayList<LiftSet> = arrayListOf()
             for (i in 1..amountOfSets) {
                 val newLift = LiftSet.buildDummyLiftSet(i)
                 liftSets.add(newLift)
             }
-            return Exercise(Lift("Squat"), liftSets)
+            return ExerciseSession(Lift("Squat"), liftSets)
         }
     }
 
