@@ -4,23 +4,23 @@ import android.util.Log
 
 class ExerciseSession(
     var exercise: Exercise? = null,
-    var listOfLiftSets: ArrayList<LiftSet>? = null) {
+    var listOfExerciseSets: ArrayList<ExerciseSet>? = null) {
 
     companion object {
 
         fun getDummyExercise(amountOfSets: Int): ExerciseSession {
-            val liftSets: ArrayList<LiftSet> = arrayListOf()
+            val exerciseSets: ArrayList<ExerciseSet> = arrayListOf()
             for (i in 1..amountOfSets) {
-                val newLift = LiftSet.buildDummyLiftSet(i)
-                liftSets.add(newLift)
+                val newLift = ExerciseSet.buildDummyLiftSet(i)
+                exerciseSets.add(newLift)
             }
-            return ExerciseSession(Exercise("Squat"), liftSets)
+            return ExerciseSession(Exercise("Squat"), exerciseSets)
         }
     }
 
     fun printInfo(logTag: String = "Luis") {
         Log.i(logTag, "--- ${exercise?.exerciseName?.uppercase()} ---")
-        listOfLiftSets?.forEach {
+        listOfExerciseSets?.forEach {
             it.printInfo(logTag)
         }
     }
