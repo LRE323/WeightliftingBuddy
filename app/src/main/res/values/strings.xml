@@ -7,4 +7,11 @@
 
     <!--  ExerciseListFragment  -->
     <string name="message_no_exercises_added">You have not added any exercises.</string>
+    <!--  AddNewExerciseDialog  -->
+    <string name="title_add_new_exercise_dialog">Create a new exercise</string>
+    <string name="positive_button_add_new_exercise_dialog">Done</string>
+    <string name="negative_button_add_new_exercise_dialog">Cancel</string>
+    <string name="add_new_exercise_dialog_name_hint">Exercise name</string>
+    <string name="add_new_exercise_dialog_name_input_error">Please enter an exercise name.</string>
+
 </resources>
