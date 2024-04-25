@@ -6,7 +6,7 @@
     <string name="add_new_activity_button">Log workout</string>
 
     <!--  ExerciseListFragment  -->
-    <string name="message_no_exercises_added">You have not added any exercises.</string>
+    <string name="message_no_exercises_added">You have not created any exercises.\n\nClick the button below to create an exercise.</string>
     <!--  AddNewExerciseDialog  -->
     <string name="title_add_new_exercise_dialog">Create a new exercise</string>
     <string name="positive_button_add_new_exercise_dialog">Done</string>
