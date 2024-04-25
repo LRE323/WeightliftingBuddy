@@ -9,7 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.weightliftingbuddy.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.dialogfragments.AddNewExerciseDialog
 import com.example.weightliftingbuddy.models.Exercise
@@ -21,6 +24,10 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     private var exerciseDatabase: ExerciseDatabase? = null
     private var lazyViewModel: Lazy<ExerciseListViewModel>? = null
     private var viewModel: ExerciseListViewModel? = null
+
+    // RecyclerView stuff
+    private var recyclerViewExerciseList: RecyclerView? = null
+    private var adapterExerciseList: ExerciseListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +48,23 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClickListeners()
+        initViews()
         initObservers()
         viewModel?.fetchExercises()
+    }
+
+    private fun initViews() {
+        initRecyclerView()
+        setOnClickListeners()
+    }
+
+    private fun initRecyclerView() {
+        adapterExerciseList = ExerciseListAdapter()
+        recyclerViewExerciseList = binding?.recyclerViewExerciseList
+        recyclerViewExerciseList?.apply {
+            adapter = adapterExerciseList
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun initViewModel() {

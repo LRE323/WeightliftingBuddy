@@ -8,6 +8,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".fragments.ExerciseListFragment">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="16dp"
+            android:id="@+id/recycler_view_exercise_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <include
             android:id="@+id/layoutNoExercisesAdded"
             app:layout_constraintStart_toStartOf="parent"
