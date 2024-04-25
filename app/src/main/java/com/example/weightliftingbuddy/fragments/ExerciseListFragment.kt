@@ -31,6 +31,21 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
         binding = FragmentExerciseListBinding.inflate(layoutInflater)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setOnClickListeners()
+        initObservers()
+        viewModel?.fetchExercises()
+    }
+
     private fun initViewModel() {
         lazyViewModel = activity?.viewModels<ExerciseListViewModel>(factoryProducer = {
             object : ViewModelProvider.Factory {
@@ -42,32 +57,14 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
         viewModel = lazyViewModel?.value
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViewVariables()
-        initObservers()
-        viewModel?.fetchExercises()
-    }
-
     private fun initObservers() {
         viewModel?.apply {
-            exerciseList.observe(viewLifecycleOwner) {
-                // Will add later...
-            }
         }
     }
 
-    private fun initViewVariables() {
+    private fun setOnClickListeners() {
         binding?.apply {
-            layoutNoExercisesAdded.btnAddNewExercise.setOnClickListener {
+            fabCreateExercise.setOnClickListener {
                 AddNewExerciseDialog(requireContext(), this@ExerciseListFragment).show()
             }
         }
