@@ -12,7 +12,7 @@ interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertExercise(exercise: Exercise)
 
-    @Query("SELECT * FROM exercise ORDER BY exerciseName ASC")
+    @Query("SELECT * FROM exercise ORDER BY exerciseName COLLATE NOCASE ASC")
     suspend fun getExercises(): List<Exercise>
 
 }
