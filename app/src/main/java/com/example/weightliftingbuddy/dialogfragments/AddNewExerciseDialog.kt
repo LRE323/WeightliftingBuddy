@@ -67,7 +67,7 @@ class AddNewExerciseDialog(context: Context, private val callBack: AddNewExercis
      */
     private fun validateExerciseNameInput(): Boolean {
         val input = textInputExerciseName?.text
-        val validInput = input?.isBlank() == false || !input.isNullOrEmpty()
+        val validInput = input?.isBlank() == false && input.isNotEmpty()
         return if (validInput) {
             true
         } else {
