@@ -1,6 +1,7 @@
 package com.example.weightliftingbuddy.room.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,5 +15,8 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM exercise ORDER BY exerciseName COLLATE NOCASE ASC")
     suspend fun getExercises(): List<Exercise>
+
+    @Delete
+    suspend fun deleteExercise(exercise: Exercise)
 
 }

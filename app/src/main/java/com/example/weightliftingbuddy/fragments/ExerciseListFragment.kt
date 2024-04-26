@@ -19,7 +19,7 @@ import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 
-class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack {
+class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnClickExerciseListener {
     private var binding: FragmentExerciseListBinding? = null
     private var exerciseDatabase: ExerciseDatabase? = null
     private var lazyViewModel: Lazy<ExerciseListViewModel>? = null
@@ -59,7 +59,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     }
 
     private fun initRecyclerView() {
-        adapterExerciseList = ExerciseListAdapter()
+        adapterExerciseList = ExerciseListAdapter(onClickExerciseListener = this)
         recyclerViewExerciseList = binding?.recyclerViewExerciseList
         recyclerViewExerciseList?.apply {
             adapter = adapterExerciseList
@@ -80,6 +80,21 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
 
     private fun initObservers() {
         viewModel?.apply {
+            exerciseList.observe(viewLifecycleOwner) {
+                binding?.apply {
+                    val noExercisesAddedLayout = layoutNoExercisesAdded.parent
+                    if (it.isEmpty()) {
+                        noExercisesAddedLayout.visibility = View.VISIBLE
+                        recyclerViewExerciseList.visibility = View.GONE
+                    } else {
+                        noExercisesAddedLayout.visibility = View.GONE
+                        recyclerViewExerciseList.visibility = View.VISIBLE
+                    }
+                }
+                adapterExerciseList?.updateList(it)
+            }
+
+            onDeleteExerciseSuccess.observe(viewLifecycleOwner) { viewModel?.fetchExercises() }
         }
     }
 
@@ -95,5 +110,9 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
                                          exerciseCreated: Exercise) {
         addNewExerciseDialog.dismiss()
         viewModel?.saveExercise(exerciseCreated)
+    }
+
+    override fun onLongClickExercise(exerciseClicked: Exercise, position: Int) {
+        viewModel?.deleteExercise(exerciseClicked)
     }
 }
