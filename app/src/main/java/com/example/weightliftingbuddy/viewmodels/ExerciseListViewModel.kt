@@ -23,7 +23,8 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
 
     fun fetchExercises() {
         CoroutineScope(Dispatchers.IO).launch {
-            exerciseList.postValue(exerciseDao.getExercises())
+            val fetchedExerciseList = exerciseDao.getExercises()
+            exerciseList.postValue(fetchedExerciseList)
         }
     }
 }
