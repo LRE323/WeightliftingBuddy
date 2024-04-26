@@ -31,5 +31,6 @@ class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null): Rec
 
     fun updateList(newExerciseList: List<Exercise>) {
         exerciseList = newExerciseList
+        notifyDataSetChanged()
     }
 }
