@@ -1,5 +1,6 @@
 package com.example.weightliftingbuddy.fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.weightliftingbuddy.ExerciseListAdapter
+import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.dialogfragments.AddNewExerciseDialog
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnClickExerciseListener {
     private var binding: FragmentExerciseListBinding? = null
@@ -113,6 +116,30 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     }
 
     override fun onLongClickExercise(exerciseClicked: Exercise, position: Int) {
-        viewModel?.deleteExercise(exerciseClicked)
+        viewModel?.apply {
+            exerciseToDelete = exerciseClicked
+            getConfirmDeleteExerciseDialog().show()
+        }
     }
+
+    private fun getConfirmDeleteExerciseDialog(): AlertDialog {
+        val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
+        dialogBuilder.apply {
+            setTitle(getString(R.string.confirm_delete_exercise_dialog_title))
+            setPositiveButton(getString(R.string.confirm_delete_exercise_dialog_positive_button), onConfirmDeleteExercise)
+            setNegativeButton(getString(R.string.confirm_delete_exercise_dialog_negative_button), onCancelDeleteExercise)
+        }
+        return dialogBuilder.create()
+    }
+
+    private val onCancelDeleteExercise = DialogInterface.OnClickListener{_, _ ->
+        viewModel?.exerciseToDelete = null
+    }
+
+    private val onConfirmDeleteExercise =
+        DialogInterface.OnClickListener { _, _ ->
+            viewModel?.apply {
+                deleteExercise(exerciseToDelete)
+            }
+        }
 }
