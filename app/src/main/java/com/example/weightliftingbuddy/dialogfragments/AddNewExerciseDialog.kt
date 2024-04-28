@@ -54,7 +54,7 @@ class AddNewExerciseDialog(context: Context, private val callBack: AddNewExercis
         val allInputValid = validateExerciseNameInput()
         if (allInputValid) {
             dialog?.apply {
-                callBack.onCreateExerciseSuccess(
+                callBack.onValidateNewExerciseSuccess(
                     this,
                     Exercise(textInputExerciseName?.text.toString().trim())
                 )
@@ -90,7 +90,7 @@ class AddNewExerciseDialog(context: Context, private val callBack: AddNewExercis
     }
 
     interface AddNewExerciseCallBack {
-        fun onCreateExerciseSuccess(addNewExerciseDialog: AlertDialog, exerciseCreated: Exercise)
+        fun onValidateNewExerciseSuccess(addNewExerciseDialog: AlertDialog, exerciseCreated: Exercise)
     }
 
 }

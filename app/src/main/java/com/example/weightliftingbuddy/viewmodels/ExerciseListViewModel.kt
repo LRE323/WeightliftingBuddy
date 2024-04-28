@@ -13,12 +13,16 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
     val onDeleteExerciseSuccess: MutableLiveData<Boolean> = MutableLiveData()
     var exerciseToDelete: Exercise? = null
 
+    private val _onCreateNewExerciseSuccess: MutableLiveData<Exercise> = MutableLiveData()
+    val onCreateNewExerciseSuccess get() = _onCreateNewExerciseSuccess
+
     fun saveExercise(exercise: Exercise) {
         CoroutineScope(Dispatchers.IO).launch {
             exerciseDao.apply {
                 insertExercise(exercise)
                 // TODO: Should not post value if nothing is inserted.
                 exerciseList.postValue(getExercises())
+                onCreateNewExerciseSuccess.postValue(exercise)
             }
         }
     }

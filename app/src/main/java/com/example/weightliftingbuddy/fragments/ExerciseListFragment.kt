@@ -21,6 +21,7 @@ import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 
 class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnClickExerciseListener {
     private var binding: FragmentExerciseListBinding? = null
@@ -98,6 +99,12 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
             }
 
             onDeleteExerciseSuccess.observe(viewLifecycleOwner) { viewModel?.fetchExercises() }
+
+            onCreateNewExerciseSuccess.observe(viewLifecycleOwner) {
+                view?.apply {
+                    Snackbar.make(this,getString(R.string.snackbar_msg_create_exercise_success, it.exerciseName), Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -109,8 +116,8 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
         }
     }
 
-    override fun onCreateExerciseSuccess(addNewExerciseDialog: AlertDialog,
-                                         exerciseCreated: Exercise) {
+    override fun onValidateNewExerciseSuccess(addNewExerciseDialog: AlertDialog,
+                                              exerciseCreated: Exercise) {
         addNewExerciseDialog.dismiss()
         viewModel?.saveExercise(exerciseCreated)
     }
