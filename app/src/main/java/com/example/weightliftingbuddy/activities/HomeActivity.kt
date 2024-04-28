@@ -24,11 +24,14 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             bottomNavigationView = bottomNavigation
         }
         val homeFragment = SelectedDateOverviewFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, homeFragment).commit()
+        if (supportFragmentManager.fragments.isEmpty()) {
+            supportFragmentManager.beginTransaction().replace(R.id.frameLayout, homeFragment).commit()
+        }
     }
 
     override fun onStart() {
         super.onStart()
+        supportActionBar?.hide()
         setOnClickListeners()
     }
 
@@ -42,6 +45,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         when (item.itemId) {
             R.id.menuItemHome -> {
                 fragmentToShow = SelectedDateOverviewFragment()
+
             }
 
             R.id.menuItemExerciseList -> {
