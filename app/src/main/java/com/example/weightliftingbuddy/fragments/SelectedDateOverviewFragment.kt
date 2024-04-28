@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -55,6 +54,12 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     private fun setOnClickListeners() {
         binding?.apply {
             workoutDate.setOnClickListener(onClickWorkoutDate)
+            workoutDateNext.setOnClickListener {
+                viewModel?.incrementSelectedWorkoutDate(1)
+            }
+            workoutDatePrevious.setOnClickListener {
+                viewModel?.incrementSelectedWorkoutDate(-1)
+            }
         }
     }
 

@@ -26,4 +26,13 @@ class SelectedWorkoutDateOverviewViewModel: ViewModel() {
             }
         }
     }
+
+
+    fun incrementSelectedWorkoutDate(by: Int) {
+        val workoutDateToSet = liveDataSelectedDate.value
+        workoutDateToSet?.apply {
+            add(Calendar.DAY_OF_MONTH, by)
+            liveDataSelectedDate.postValue(this)
+        }
+    }
 }
