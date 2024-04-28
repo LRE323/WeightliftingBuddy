@@ -54,10 +54,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
     private fun setOnClickListeners() {
         binding?.apply {
-            workoutDate.setOnClickListener(onClickWorkoutDate)
-            noWorkoutLoggedView.buttonAddNewActivity.setOnClickListener {
-                Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
