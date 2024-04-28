@@ -125,7 +125,9 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     private fun getConfirmDeleteExerciseDialog(): AlertDialog {
         val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
         dialogBuilder.apply {
+            val exerciseToDeleteName = viewModel?.exerciseToDelete?.exerciseName
             setTitle(getString(R.string.confirm_delete_exercise_dialog_title))
+            setMessage(exerciseToDeleteName)
             setPositiveButton(getString(R.string.confirm_delete_exercise_dialog_positive_button), onConfirmDeleteExercise)
             setNegativeButton(getString(R.string.confirm_delete_exercise_dialog_negative_button), onCancelDeleteExercise)
         }

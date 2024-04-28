@@ -14,7 +14,7 @@
     <string name="add_new_exercise_dialog_name_hint">Exercise name</string>
     <string name="add_new_exercise_dialog_name_input_error">Please enter an exercise name.</string>
 <!--  ConfirmDeleteExerciseDialog  -->
-    <string name="confirm_delete_exercise_dialog_title">Are you sure you want to delete %1$s?</string>
+    <string name="confirm_delete_exercise_dialog_title">Are you sure you want to delete the following exercise?</string>
     <string name="confirm_delete_exercise_dialog_positive_button">YES, DELETE IT</string>
     <string name="confirm_delete_exercise_dialog_negative_button">NO, DON\'T DELETE</string>
 
