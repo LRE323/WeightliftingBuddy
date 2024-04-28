@@ -10,7 +10,10 @@ import kotlinx.coroutines.launch
 
 class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
     val exerciseList: MutableLiveData<List<Exercise>> = MutableLiveData()
-    val onDeleteExerciseSuccess: MutableLiveData<Boolean> = MutableLiveData()
+
+    private val _onDeleteExerciseSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val onDeleteExerciseSuccess get() = _onDeleteExerciseSuccess
+
     var exerciseToDelete: Exercise? = null
 
     private val _onCreateNewExerciseSuccess: MutableLiveData<Exercise> = MutableLiveData()
@@ -31,7 +34,7 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
         if (exercise != null) {
             CoroutineScope(Dispatchers.IO).launch {
                 exerciseDao.deleteExercise(exercise)
-                onDeleteExerciseSuccess.postValue(true)
+                _onDeleteExerciseSuccess.postValue(true)
             }
         }
     }

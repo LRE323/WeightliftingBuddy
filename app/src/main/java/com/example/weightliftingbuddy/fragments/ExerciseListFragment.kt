@@ -98,7 +98,13 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
                 adapterExerciseList?.updateList(it)
             }
 
-            onDeleteExerciseSuccess.observe(viewLifecycleOwner) { viewModel?.fetchExercises() }
+            onDeleteExerciseSuccess.observe(viewLifecycleOwner) {
+                view?.apply {
+                    Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel?.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
+                }
+                viewModel?.fetchExercises()
+                viewModel?.exerciseToDelete = null
+            }
 
             onCreateNewExerciseSuccess.observe(viewLifecycleOwner) {
                 view?.apply {
