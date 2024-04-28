@@ -54,6 +54,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
     private fun setOnClickListeners() {
         binding?.apply {
+            workoutDate.setOnClickListener(onClickWorkoutDate)
         }
     }
 
