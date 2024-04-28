@@ -99,16 +99,21 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
             }
 
             onDeleteExerciseSuccess.observe(viewLifecycleOwner) {
-                view?.apply {
-                    Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel?.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
+                it.getContentIfNotHandled()?.apply {
+                    view?.apply {
+                        Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel?.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
+                    }
+                    viewModel?.fetchExercises()
+                    viewModel?.exerciseToDelete = null
                 }
-                viewModel?.fetchExercises()
-                viewModel?.exerciseToDelete = null
             }
 
             onCreateNewExerciseSuccess.observe(viewLifecycleOwner) {
-                view?.apply {
-                    Snackbar.make(this,getString(R.string.snackbar_msg_create_exercise_success, it.exerciseName), Snackbar.LENGTH_SHORT).show()
+                it.getContentIfNotHandled()?.apply {
+                    val exerciseCreated = this
+                    view?.apply {
+                        Snackbar.make(this,getString(R.string.snackbar_msg_create_exercise_success, exerciseCreated.exerciseName), Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

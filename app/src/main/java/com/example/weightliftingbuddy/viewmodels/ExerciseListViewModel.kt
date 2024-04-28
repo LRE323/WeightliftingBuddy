@@ -1,5 +1,6 @@
 package com.example.weightliftingbuddy.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Exercise
@@ -11,13 +12,13 @@ import kotlinx.coroutines.launch
 class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
     val exerciseList: MutableLiveData<List<Exercise>> = MutableLiveData()
 
-    private val _onDeleteExerciseSuccess: MutableLiveData<Boolean> = MutableLiveData()
-    val onDeleteExerciseSuccess get() = _onDeleteExerciseSuccess
+    private val _onDeleteExerciseSuccess: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val onDeleteExerciseSuccess: LiveData<Event<Boolean>> get() = _onDeleteExerciseSuccess
 
     var exerciseToDelete: Exercise? = null
 
-    private val _onCreateNewExerciseSuccess: MutableLiveData<Exercise> = MutableLiveData()
-    val onCreateNewExerciseSuccess get() = _onCreateNewExerciseSuccess
+    private val _onCreateNewExerciseSuccess: MutableLiveData<Event<Exercise>> = MutableLiveData()
+    val onCreateNewExerciseSuccess: LiveData<Event<Exercise>> get() = _onCreateNewExerciseSuccess
 
     fun saveExercise(exercise: Exercise) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -25,7 +26,7 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
                 insertExercise(exercise)
                 // TODO: Should not post value if nothing is inserted.
                 exerciseList.postValue(getExercises())
-                onCreateNewExerciseSuccess.postValue(exercise)
+                _onCreateNewExerciseSuccess.postValue(Event(exercise))
             }
         }
     }
@@ -34,7 +35,7 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
         if (exercise != null) {
             CoroutineScope(Dispatchers.IO).launch {
                 exerciseDao.deleteExercise(exercise)
-                _onDeleteExerciseSuccess.postValue(true)
+                _onDeleteExerciseSuccess.postValue(Event(true))
             }
         }
     }
