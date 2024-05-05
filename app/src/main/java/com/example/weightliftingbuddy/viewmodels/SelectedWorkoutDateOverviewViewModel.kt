@@ -3,9 +3,10 @@ package com.example.weightliftingbuddy.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Workout
+import com.example.weightliftingbuddy.room.dao.ExerciseDao
 import java.util.Calendar
 
-class SelectedWorkoutDateOverviewViewModel: ViewModel() {
+class SelectedWorkoutDateOverviewViewModel(exerciseDao: ExerciseDao): ViewModel() {
     /**
      * The current date that has been set or selected, either by default or by the user
      */
