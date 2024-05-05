@@ -7,22 +7,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.dialogfragments.ChooseExerciseBottomSheet
+import com.example.weightliftingbuddy.room.database.ExerciseDatabase
+import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import java.util.Calendar
 
 class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
+    
+    // ViewModel stuff
+    private var exerciseDatabase: ExerciseDatabase? = null
+    private var lazyViewModel: Lazy<SelectedWorkoutDateOverviewViewModel>? = null
     private var viewModel: SelectedWorkoutDateOverviewViewModel? = null
+
+    // Related to Views
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context?.apply {
+            exerciseDatabase = Room.databaseBuilder(applicationContext, ExerciseDatabase::class.java, ExerciseDatabase.NAME).build()
+        }
         viewModel = ViewModelProvider(this)[SelectedWorkoutDateOverviewViewModel::class.java]
+        initViewModel()
         binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
     }
 
@@ -32,6 +47,17 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     ): View? {
         // Inflate the layout for this fragment
         return binding?.root
+    }
+
+    private fun initViewModel() {
+        lazyViewModel = activity?.viewModels<SelectedWorkoutDateOverviewViewModel>(factoryProducer = {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return exerciseDatabase?.dao?.let { ExerciseListViewModel(it) } as T
+                }
+            }
+        })
+        viewModel = lazyViewModel?.value
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
