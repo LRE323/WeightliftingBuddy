@@ -16,6 +16,7 @@ import androidx.room.Room
 import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.dialogfragments.ChooseExerciseBottomSheet
+import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
@@ -68,6 +69,11 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     private fun initObservers() {
         viewModel?.apply {
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
+            createdExercises.observe(viewLifecycleOwner){
+                it.getContentIfNotHandled()?.apply {
+                    createAndShowChooseExerciseBottomSheet(this)
+                }
+            }
         }
     }
 
@@ -89,13 +95,13 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
                 viewModel?.incrementSelectedWorkoutDate(-1)
             }
 
-            fabLogWorkout.setOnClickListener { createAndShowChooseExerciseBottomSheet() }
+            fabLogWorkout.setOnClickListener { viewModel?.fetchCreatedExercises() }
         }
     }
 
-    private fun createAndShowChooseExerciseBottomSheet() {
-//        val chooseExerciseBottomSheet = ChooseExerciseBottomSheet()
-//        chooseExerciseBottomSheet.show(parentFragmentManager, ChooseExerciseBottomSheet.TAG)
+    private fun createAndShowChooseExerciseBottomSheet(exerciseList: List<Exercise>) {
+        val chooseExerciseBottomSheet = ChooseExerciseBottomSheet(exerciseList)
+        chooseExerciseBottomSheet.show(parentFragmentManager, ChooseExerciseBottomSheet.TAG)
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
