@@ -81,11 +81,14 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     }
 
     private fun showWorkoutDatePickerDialog(selectedDate: Calendar) {
-        val year = selectedDate.get(Calendar.YEAR)
-        val monthOfYear = selectedDate.get(Calendar.MONTH)
-        val dayOfMonth = selectedDate.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(requireContext(), 0, this, year, monthOfYear, dayOfMonth)
-        datePickerDialog.show()
+        var datePickerDialog: DatePickerDialog? = null
+        selectedDate.apply {
+            val year = get(Calendar.YEAR)
+            val monthOfYear = get(Calendar.MONTH)
+            val dayOfMonth = get(Calendar.DAY_OF_MONTH)
+            datePickerDialog = DatePickerDialog(requireContext(), 0, this@SelectedDateOverviewFragment, year, monthOfYear, dayOfMonth)
+        }
+        datePickerDialog?.show()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
