@@ -36,7 +36,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         context?.apply {
             exerciseDatabase = Room.databaseBuilder(applicationContext, ExerciseDatabase::class.java, ExerciseDatabase.NAME).build()
         }
-        viewModel = ViewModelProvider(this)[SelectedWorkoutDateOverviewViewModel::class.java]
         initViewModel()
         binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
     }
@@ -53,7 +52,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         lazyViewModel = activity?.viewModels<SelectedWorkoutDateOverviewViewModel>(factoryProducer = {
             object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return exerciseDatabase?.dao?.let { ExerciseListViewModel(it) } as T
+                    return exerciseDatabase?.dao?.let { SelectedWorkoutDateOverviewViewModel(it) } as T
                 }
             }
         })
@@ -95,8 +94,8 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     }
 
     private fun createAndShowChooseExerciseBottomSheet() {
-        val chooseExerciseBottomSheet = ChooseExerciseBottomSheet()
-        chooseExerciseBottomSheet.show(parentFragmentManager, ChooseExerciseBottomSheet.TAG)
+//        val chooseExerciseBottomSheet = ChooseExerciseBottomSheet()
+//        chooseExerciseBottomSheet.show(parentFragmentManager, ChooseExerciseBottomSheet.TAG)
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
