@@ -14,7 +14,7 @@ interface ExerciseDao {
     suspend fun insertExercise(exercise: Exercise)
 
     @Query("SELECT * FROM exercise ORDER BY exerciseName COLLATE NOCASE ASC")
-    suspend fun getExercises(): List<Exercise>
+    suspend fun fetchCreatedExercises(): List<Exercise>
 
     @Delete
     suspend fun deleteExercise(exercise: Exercise)
