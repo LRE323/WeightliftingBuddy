@@ -36,7 +36,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.apply {
-            exerciseDatabase = Room.databaseBuilder(applicationContext, ExerciseDatabase::class.java, "exercise.db").build()
+            exerciseDatabase = Room.databaseBuilder(applicationContext, ExerciseDatabase::class.java, ExerciseDatabase.NAME).build()
         }
         initViewModel()
         binding = FragmentExerciseListBinding.inflate(layoutInflater)
