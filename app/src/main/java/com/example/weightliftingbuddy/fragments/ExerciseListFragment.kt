@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.dialogfragments.AddNewExerciseDialog
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
+import com.example.weightliftingbuddy.viewmodels.Event
 import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -97,25 +99,27 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
                 }
                 adapterExerciseList?.updateList(it)
             }
+            onDeleteExerciseSuccess.observe(viewLifecycleOwner, onDeleteExerciseObserver)
+            onCreateNewExerciseSuccess.observe(viewLifecycleOwner, onCreateNewExerciseSuccessObserver)
+        }
+    }
 
-            onDeleteExerciseSuccess.observe(viewLifecycleOwner) {
-                it.getContentIfNotHandled()?.apply {
-                    view?.apply {
-                        Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel?.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
-                    }
-                    viewModel?.fetchExercises()
-                    viewModel?.exerciseToDelete = null
-                }
+    private val onCreateNewExerciseSuccessObserver = Observer<Event<Exercise>> {
+        it.getContentIfNotHandled()?.apply {
+            val exerciseCreated = this
+            view?.apply {
+                Snackbar.make(this,getString(R.string.snackbar_msg_create_exercise_success, exerciseCreated.exerciseName), Snackbar.LENGTH_SHORT).show()
             }
+        }
+    }
 
-            onCreateNewExerciseSuccess.observe(viewLifecycleOwner) {
-                it.getContentIfNotHandled()?.apply {
-                    val exerciseCreated = this
-                    view?.apply {
-                        Snackbar.make(this,getString(R.string.snackbar_msg_create_exercise_success, exerciseCreated.exerciseName), Snackbar.LENGTH_SHORT).show()
-                    }
-                }
+    private val onDeleteExerciseObserver = Observer<Event<Boolean>> {
+        it.getContentIfNotHandled()?.apply {
+            view?.apply {
+                Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel?.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
             }
+            viewModel?.fetchExercises()
+            viewModel?.exerciseToDelete = null
         }
     }
 
