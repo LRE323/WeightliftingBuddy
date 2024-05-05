@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
+import com.example.weightliftingbuddy.dialogfragments.ChooseExerciseBottomSheet
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import java.util.Calendar
 
@@ -54,13 +55,22 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     private fun setOnClickListeners() {
         binding?.apply {
             workoutDate.setOnClickListener(onClickWorkoutDate)
+
             workoutDateNext.setOnClickListener {
                 viewModel?.incrementSelectedWorkoutDate(1)
             }
+
             workoutDatePrevious.setOnClickListener {
                 viewModel?.incrementSelectedWorkoutDate(-1)
             }
+
+            fabLogWorkout.setOnClickListener { createAndShowChooseExerciseBottomSheet() }
         }
+    }
+
+    private fun createAndShowChooseExerciseBottomSheet() {
+        val chooseExerciseBottomSheet = ChooseExerciseBottomSheet()
+        chooseExerciseBottomSheet.show(parentFragmentManager, ChooseExerciseBottomSheet.TAG)
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
