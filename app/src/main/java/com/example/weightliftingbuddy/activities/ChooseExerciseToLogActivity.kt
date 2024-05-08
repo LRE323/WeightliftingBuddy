@@ -21,6 +21,6 @@ class ChooseExerciseToLogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_log_exercise2)
+        setContentView(R.layout.activity_choose_exercise_to_log)
     }
 }
