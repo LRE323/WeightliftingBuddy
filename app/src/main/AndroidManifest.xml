@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:screenOrientation="sensorPortrait"
-            android:name=".activities.LogExerciseActivity"
+            android:name=".activities.ChooseExerciseToLogActivity"
             android:exported="false" />
     </application>
 
