@@ -15,10 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
-import com.example.weightliftingbuddy.dialogfragments.ChooseExerciseBottomSheet
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
-import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import java.util.Calendar
 
@@ -100,8 +98,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     }
 
     private fun createAndShowChooseExerciseBottomSheet(exerciseList: List<Exercise>) {
-        val chooseExerciseBottomSheet = ChooseExerciseBottomSheet(exerciseList)
-        chooseExerciseBottomSheet.show(parentFragmentManager, ChooseExerciseBottomSheet.TAG)
+
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
@@ -112,7 +109,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     }
 
     private fun showWorkoutDatePickerDialog(selectedDate: Calendar) {
-        var datePickerDialog: DatePickerDialog? = null
+        var datePickerDialog: DatePickerDialog?
         selectedDate.apply {
             val year = get(Calendar.YEAR)
             val monthOfYear = get(Calendar.MONTH)
