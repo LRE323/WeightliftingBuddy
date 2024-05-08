@@ -4,10 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.weightliftingbuddy.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
+import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBinding
 import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.viewmodels.ChooseExerciseToLogViewModel
 
 class ChooseExerciseToLogActivity : AppCompatActivity() {
+    private var binding: ActivityChooseExerciseToLogBinding? = null
+    private var viewModel: ChooseExerciseToLogViewModel? = null
+
+    // RecyclerView stuff
+    private var recyclerViewExerciseList: RecyclerView? = null
+    private var adapterExerciseList: ExerciseListAdapter? = null
 
     companion object {
         private const val EXERCISE_LIST = "EXERCISE_LIST"
@@ -21,6 +33,44 @@ class ChooseExerciseToLogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_choose_exercise_to_log)
+
+        // Init the ViewModel.
+        viewModel = ViewModelProvider(this)[ChooseExerciseToLogViewModel::class.java]
+        viewModel?.init(getExerciseListFromExtras())
+
+        // Init binding
+        binding = ActivityChooseExerciseToLogBinding.inflate(layoutInflater)
+        binding?.apply {
+            setContentView(root)
+        }
+
+        // Set the title for the action bar.
+        supportActionBar?.title = getString(R.string.title_choose_exercise_to_log_activity)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        // Init the adapter.
+        adapterExerciseList = ExerciseListAdapter()
+
+        // Init the RecyclerView.
+        recyclerViewExerciseList = binding?.rvExerciseList
+        recyclerViewExerciseList?.apply {
+            adapter = adapterExerciseList
+            layoutManager = LinearLayoutManager(this@ChooseExerciseToLogActivity)
+        }
+
+        // Update the exercise list.
+        viewModel?.exerciseList?.apply {
+            adapterExerciseList?.updateList(this)
+        }
+    }
+
+    private fun getExerciseListFromExtras(): ArrayList<Exercise>? {
+        return intent.getParcelableArrayListExtra(EXERCISE_LIST)
     }
 }
