@@ -26,12 +26,12 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val homeFragment = SelectedDateOverviewFragment()
         if (supportFragmentManager.fragments.isEmpty()) {
             supportFragmentManager.beginTransaction().replace(R.id.frameLayout, homeFragment).commit()
+            setSupportActionBarTitle(homeFragment)
         }
     }
 
     override fun onStart() {
         super.onStart()
-        supportActionBar?.hide()
         setOnClickListeners()
     }
 
@@ -45,21 +45,45 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         when (item.itemId) {
             R.id.menuItemHome -> {
                 fragmentToShow = SelectedDateOverviewFragment()
-
+                supportActionBar?.title = getString(R.string.menu_option_name_home)
             }
 
             R.id.menuItemExerciseList -> {
                 fragmentToShow = ExerciseListFragment()
+                supportActionBar?.title = getString(R.string.menu_option_name_exercises)
             }
 
             R.id.menuItemHistory -> {
                 fragmentToShow = HistoryFragment()
+                supportActionBar?.title = getString(R.string.menu_option_name_history)
             }
         }
         fragmentToShow?.apply {
             // Show the Fragment that was selected.
             supportFragmentManager.beginTransaction().replace(R.id.frameLayout, this).commit()
+            setSupportActionBarTitle(this)
         }
         return fragmentToShow != null
+    }
+
+    private fun setSupportActionBarTitle(fragmentShowing: Fragment) {
+        val titleToSet = when (fragmentShowing) {
+            is SelectedDateOverviewFragment -> {
+                getString(R.string.menu_option_name_home)
+            }
+
+            is ExerciseListFragment -> {
+                getString(R.string.menu_option_name_exercises)
+            }
+
+            is HistoryFragment -> {
+                getString(R.string.menu_option_name_history)
+            }
+
+            else -> {
+                ""
+            }
+        }
+        supportActionBar?.title = titleToSet
     }
 }
