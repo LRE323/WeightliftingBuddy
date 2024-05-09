@@ -65,7 +65,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     }
 
     private fun initRecyclerView() {
-        adapterExerciseList = ExerciseListAdapter(onClickExerciseListener = this)
+        adapterExerciseList = ExerciseListAdapter(onLongClickExerciseCallBack = this)
         recyclerViewExerciseList = binding?.recyclerViewExerciseList
         recyclerViewExerciseList?.apply {
             adapter = adapterExerciseList

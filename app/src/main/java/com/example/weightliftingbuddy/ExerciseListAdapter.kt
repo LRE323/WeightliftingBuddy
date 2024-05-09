@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.models.Exercise
 
-class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null, var onClickExerciseListener: OnLongClickExerciseCallBack? = null): RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder>() {
+class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null, var onLongClickExerciseCallBack: OnLongClickExerciseCallBack? = null): RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseListViewHolder {
         val viewExerciseItem = LayoutInflater.from(parent.context).inflate(R.layout.item_exercise, parent, false)
@@ -24,7 +24,7 @@ class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null, var 
             setExerciseName(holder.itemView ,currentExercise)
 
             // Set the OnClickListeners
-            holder.itemView.setOnLongClickListener { onClickExerciseListener?.onLongClickExercise(currentExercise, position); true}
+            holder.itemView.setOnLongClickListener { onLongClickExerciseCallBack?.onLongClickExercise(currentExercise, position); true}
         }
     }
 
