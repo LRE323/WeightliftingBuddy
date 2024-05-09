@@ -25,7 +25,7 @@ import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
-class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnClickExerciseListener {
+class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnLongClickExerciseCallBack {
     private var binding: FragmentExerciseListBinding? = null
     private var exerciseDatabase: ExerciseDatabase? = null
     private var lazyViewModel: Lazy<ExerciseListViewModel>? = null
