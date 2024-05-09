@@ -5,6 +5,11 @@
 
     <string name="add_new_activity_button">Log workout</string>
 
+<!--  HomeActivity  -->
+    <string name="menu_option_name_home">Home</string>
+    <string name="menu_option_name_exercises">Exercises</string>
+    <string name="menu_option_name_history">History</string>
+
     <!--  ExerciseListFragment  -->
     <string name="message_no_exercises_added">You have not created any exercises.\n\nClick the button below to create an exercise.</string>
     <string name="snackbar_msg_create_exercise_success">"Created exercise: %1$s</string>
