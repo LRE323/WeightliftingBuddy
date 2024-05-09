@@ -7,7 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.models.Exercise
 
-class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null, var onLongClickExerciseCallBack: OnLongClickExerciseCallBack? = null): RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder>() {
+class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null,
+                          var onLongClickExerciseCallBack: OnLongClickExerciseCallBack? = null,
+                          var onClickExerciseCallBack: OnClickExerciseCallBack? = null
+): RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseListViewHolder {
         val viewExerciseItem = LayoutInflater.from(parent.context).inflate(R.layout.item_exercise, parent, false)
@@ -24,7 +27,12 @@ class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null, var 
             setExerciseName(holder.itemView ,currentExercise)
 
             // Set the OnClickListeners
-            holder.itemView.setOnLongClickListener { onLongClickExerciseCallBack?.onLongClickExercise(currentExercise, position); true}
+            onClickExerciseCallBack?.apply {
+                holder.itemView.setOnClickListener { onClickExercise(currentExercise, position) }
+            }
+            onLongClickExerciseCallBack?.apply {
+                holder.itemView.setOnLongClickListener { onLongClickExercise(currentExercise, position); true}
+            }
         }
     }
 
@@ -40,6 +48,10 @@ class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null, var 
 
     interface OnLongClickExerciseCallBack {
         fun onLongClickExercise(exerciseClicked: Exercise, position: Int)
+    }
+
+    interface OnClickExerciseCallBack {
+        fun onClickExercise(exerciseClicked: Exercise, position: Int)
     }
 
     inner class ExerciseListViewHolder(exerciseView: View): RecyclerView.ViewHolder(exerciseView)
