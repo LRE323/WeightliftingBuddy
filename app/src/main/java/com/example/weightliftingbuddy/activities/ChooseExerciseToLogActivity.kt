@@ -13,7 +13,7 @@ import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBin
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.viewmodels.ChooseExerciseToLogViewModel
 
-class ChooseExerciseToLogActivity : AppCompatActivity() {
+class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnClickExerciseCallBack {
     private var binding: ActivityChooseExerciseToLogBinding? = null
     private var viewModel: ChooseExerciseToLogViewModel? = null
 
@@ -56,6 +56,7 @@ class ChooseExerciseToLogActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         // Init the adapter.
         adapterExerciseList = ExerciseListAdapter()
+        adapterExerciseList?.onClickExerciseCallBack = this
 
         // Init the RecyclerView.
         recyclerViewExerciseList = binding?.rvExerciseList
@@ -72,5 +73,8 @@ class ChooseExerciseToLogActivity : AppCompatActivity() {
 
     private fun getExerciseListFromExtras(): ArrayList<Exercise>? {
         return intent.getParcelableArrayListExtra(EXERCISE_LIST)
+    }
+
+    override fun onClickExercise(exerciseClicked: Exercise, position: Int) {
     }
 }
