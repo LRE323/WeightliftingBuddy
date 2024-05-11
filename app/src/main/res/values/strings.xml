@@ -6,7 +6,7 @@
     <string name="add_new_activity_button">Log workout</string>
 
 <!--  HomeActivity  -->
-    <string name="menu_option_name_home">Home</string>
+    <string name="menu_option_name_home">Workout Overview</string>
     <string name="menu_option_name_exercises">Exercises</string>
     <string name="menu_option_name_history">History</string>
 
