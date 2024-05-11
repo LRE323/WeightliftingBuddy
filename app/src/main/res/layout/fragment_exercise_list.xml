@@ -9,9 +9,10 @@
         tools:context=".fragments.ExerciseListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/item_exercise"
             tools:visibility="visible"
             android:visibility="gone"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
             android:id="@+id/recycler_view_exercise_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

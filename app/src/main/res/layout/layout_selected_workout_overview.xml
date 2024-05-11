@@ -24,21 +24,21 @@
                 <ImageView
                     android:background="?attr/selectableItemBackground"
                     android:id="@+id/workout_date_previous"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:src="@drawable/baseline_arrow_back_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    style="@style/TextAppearance.Material3.HeadlineLarge"
                     android:background="?attr/selectableItemBackground"
                     android:id="@+id/workoutDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:textSize="32sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/workout_date_next"
                     app:layout_constraintStart_toEndOf="@id/workout_date_previous"
@@ -48,8 +48,8 @@
                 <ImageView
                     android:background="?attr/selectableItemBackground"
                     android:id="@+id/workout_date_next"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:src="@drawable/baseline_arrow_forward_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

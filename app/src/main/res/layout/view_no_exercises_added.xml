@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:id="@+id/tvNoExercisesAddedMessage"
             android:layout_marginBottom="16dp"
             android:textAlignment="center"
