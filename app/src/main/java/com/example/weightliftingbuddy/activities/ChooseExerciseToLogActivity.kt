@@ -1,5 +1,6 @@
 package com.example.weightliftingbuddy.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBinding
+import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.viewmodels.ChooseExerciseToLogViewModel
 
@@ -76,5 +78,8 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
     }
 
     override fun onClickExercise(exerciseClicked: Exercise, position: Int) {
+        intent.putExtra(SelectedDateOverviewFragment.SELECTED_EXERCISE, exerciseClicked)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }

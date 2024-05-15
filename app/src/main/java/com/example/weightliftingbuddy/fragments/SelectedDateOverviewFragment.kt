@@ -1,12 +1,16 @@
 package com.example.weightliftingbuddy.fragments
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -31,6 +35,18 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
     // Related to Views
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
+
+    private val chooseExerciseToLogResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.apply {
+                val exerciseSelected = this.getParcelableExtra<Exercise>(SELECTED_EXERCISE)
+            }
+        }
+    }
+
+    companion object {
+        const val SELECTED_EXERCISE = "SELECTED_EXERCISE"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,12 +88,14 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
 
             createdExercises.observe(viewLifecycleOwner){
-                it.getContentIfNotHandled()?.apply {
-                    val intent = ChooseExerciseToLogActivity.getIntent(requireContext(), ArrayList(this))
-                    startActivity(intent)
-                }
+                it.getContentIfNotHandled()?.apply { launchChooseExerciseToLogActivity(ArrayList(this)) }
             }
         }
+    }
+
+    private fun launchChooseExerciseToLogActivity(exercisesCreated: ArrayList<Exercise>) {
+        val intent = ChooseExerciseToLogActivity.getIntent(requireContext(), exercisesCreated)
+        chooseExerciseToLogResult.launch(intent)
     }
 
     private val onDateSelected = Observer<Calendar> {
