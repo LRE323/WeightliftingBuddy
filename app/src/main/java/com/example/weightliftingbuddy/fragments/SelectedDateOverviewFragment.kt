@@ -14,10 +14,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.weightliftingbuddy.GeneralUtilities
+import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
+import java.util.ArrayList
 import java.util.Calendar
 
 class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
@@ -66,10 +68,13 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
     private fun initObservers() {
         viewModel?.apply {
+
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
+
             createdExercises.observe(viewLifecycleOwner){
                 it.getContentIfNotHandled()?.apply {
-
+                    val intent = ChooseExerciseToLogActivity.getIntent(requireContext(), ArrayList(this))
+                    startActivity(intent)
                 }
             }
         }
