@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.weightliftingbuddy.ExerciseListAdapter
+import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.dialogfragments.AddNewExerciseDialog

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weightliftingbuddy.ExerciseListAdapter
+import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBinding
 import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment

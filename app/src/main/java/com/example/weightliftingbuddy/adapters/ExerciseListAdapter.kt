@@ -1,10 +1,11 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.models.Exercise
 
 class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null,
