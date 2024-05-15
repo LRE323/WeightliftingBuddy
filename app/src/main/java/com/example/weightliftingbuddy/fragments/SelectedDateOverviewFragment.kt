@@ -69,7 +69,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
             createdExercises.observe(viewLifecycleOwner){
                 it.getContentIfNotHandled()?.apply {
-                    createAndShowChooseExerciseBottomSheet(this)
+
                 }
             }
         }
@@ -95,10 +95,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
             fabLogWorkout.setOnClickListener { viewModel?.fetchCreatedExercises() }
         }
-    }
-
-    private fun createAndShowChooseExerciseBottomSheet(exerciseList: List<Exercise>) {
-
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
