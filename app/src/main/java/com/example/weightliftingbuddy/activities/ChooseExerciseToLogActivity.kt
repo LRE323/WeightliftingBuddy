@@ -35,19 +35,23 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initViewModel()
+        initBinding()
 
-        // Init the ViewModel.
+        // Set the title for the action bar.
+        supportActionBar?.title = getString(R.string.title_choose_exercise_to_log_activity)
+    }
+
+    private fun initViewModel() {
         viewModel = ViewModelProvider(this)[ChooseExerciseToLogViewModel::class.java]
         viewModel?.init(getExerciseListFromExtras())
+    }
 
-        // Init binding
+    private fun initBinding() {
         binding = ActivityChooseExerciseToLogBinding.inflate(layoutInflater)
         binding?.apply {
             setContentView(root)
         }
-
-        // Set the title for the action bar.
-        supportActionBar?.title = getString(R.string.title_choose_exercise_to_log_activity)
     }
 
     override fun onStart() {
