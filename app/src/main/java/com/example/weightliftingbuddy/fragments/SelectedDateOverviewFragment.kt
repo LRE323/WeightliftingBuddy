@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.apply {
                 val exerciseSelected = this.getParcelableExtra<Exercise>(SELECTED_EXERCISE)
+                Toast.makeText(requireContext(), "Selected ${exerciseSelected?.exerciseName}", Toast.LENGTH_SHORT).show()
             }
         }
     }
