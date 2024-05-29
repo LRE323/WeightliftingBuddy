@@ -17,6 +17,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Exercise name" />
 
+<!--  This is only used in the SelectedDateOverviewFragment  -->
+    <TextView
+        android:id="@+id/text_view_sets_logged"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="4dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exercise_item_exercise_name"
+        tools:text="# sets logged"
+        tools:visibility="visible" />
+
     <View
         android:id="@+id/margin"
         android:layout_width="match_parent"
