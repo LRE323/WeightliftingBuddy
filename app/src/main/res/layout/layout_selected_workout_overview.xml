@@ -9,21 +9,21 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:paddingTop="16dp"
-            android:paddingHorizontal="16dp"
             android:id="@+id/ll_layout_workout_date_area_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toTopOf="parent">
 
             <include
-                android:padding="16dp"
                 android:id="@+id/layout_workout_date_area"
                 layout="@layout/constraint_layout_selected_date_overview_workout_date_area"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="16dp" />
 
         </LinearLayout>
 
@@ -31,30 +31,22 @@
             android:id="@+id/homePageHeaderBorder"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="8dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
             android:background="@color/teal_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_layout_workout_date_area_wrapper" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:orientation="vertical"
+        <include
+            android:id="@+id/noWorkoutLoggedView"
+            layout="@layout/no_workout_logged_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder">
-
-            <include
-                android:id="@+id/noWorkoutLoggedView"
-                layout="@layout/no_workout_logged_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_log_workout"
