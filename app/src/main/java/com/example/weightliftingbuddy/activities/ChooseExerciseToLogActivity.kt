@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
+import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBinding
 import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment
 import com.example.weightliftingbuddy.models.Exercise
@@ -36,10 +36,7 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()
-        initBinding()
-
-        // Set the title for the action bar.
-        supportActionBar?.title = getString(R.string.title_choose_exercise_to_log_activity)
+        initObservers()
     }
 
     private fun initViewModel() {
@@ -56,12 +53,23 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
 
     override fun onStart() {
         super.onStart()
-        initRecyclerView()
+        // Set the title for the action bar.
+        supportActionBar?.title = getString(R.string.title_choose_exercise_to_log_activity)
+        initBinding()
+
     }
 
-    private fun initRecyclerView() {
+    private fun initObservers() {
+        viewModel?.apply {
+            exerciseList.observe(this@ChooseExerciseToLogActivity){
+                initRecyclerView(it.getContentIfNotHandled())
+            }
+        }
+    }
+
+    private fun initRecyclerView(createdExercises: ArrayList<Exercise>?) {
         // Init the adapter.
-        adapterExerciseList = ExerciseListAdapter()
+        adapterExerciseList = ExerciseListAdapter(createdExercises)
         adapterExerciseList?.onClickExerciseCallBack = this
 
         // Init the RecyclerView.
@@ -69,11 +77,6 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
         recyclerViewExerciseList?.apply {
             adapter = adapterExerciseList
             layoutManager = LinearLayoutManager(this@ChooseExerciseToLogActivity)
-        }
-
-        // Update the exercise list.
-        viewModel?.exerciseList?.apply {
-            adapterExerciseList?.updateList(this)
         }
     }
 
