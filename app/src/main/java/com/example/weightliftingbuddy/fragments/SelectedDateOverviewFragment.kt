@@ -4,12 +4,12 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.Toast
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -23,7 +23,6 @@ import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewB
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
-import java.util.ArrayList
 import java.util.Calendar
 
 class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
@@ -33,8 +32,11 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     private var lazyViewModel: Lazy<SelectedWorkoutDateOverviewViewModel>? = null
     private var viewModel: SelectedWorkoutDateOverviewViewModel? = null
 
-    // Related to Views
+    // Binding and Views
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
+    private var tvWorkoutDate: TextView? = null
+    private var iconWorkoutDateNext: ImageView? = null
+    private var iconWorkoutDatePrevious: ImageView? = null
 
     private val chooseExerciseToLogResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -79,7 +81,22 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+        initViews()
+    }
+
+    private fun initViews() {
+        binding?.apply {
+            initViewVariables(this)
+        }
         setOnClickListeners()
+    }
+
+    private fun initViewVariables(binding: LayoutSelectedWorkoutOverviewBinding) {
+        binding.apply {
+            tvWorkoutDate = this.layoutWorkoutDateArea.workoutDate
+            iconWorkoutDateNext = this.layoutWorkoutDateArea.workoutDateNext
+            iconWorkoutDatePrevious = this.layoutWorkoutDateArea.workoutDatePrevious
+        }
     }
 
     private fun initObservers() {
@@ -100,19 +117,19 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
     private val onDateSelected = Observer<Calendar> {
         binding?.apply {
-            workoutDate.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
+            tvWorkoutDate?.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
         }
     }
 
     private fun setOnClickListeners() {
         binding?.apply {
-            workoutDate.setOnClickListener(onClickWorkoutDate)
+            tvWorkoutDate?.setOnClickListener(onClickWorkoutDate)
 
-            workoutDateNext.setOnClickListener {
+            iconWorkoutDateNext?.setOnClickListener {
                 viewModel?.incrementSelectedWorkoutDate(1)
             }
 
-            workoutDatePrevious.setOnClickListener {
+            iconWorkoutDatePrevious?.setOnClickListener {
                 viewModel?.incrementSelectedWorkoutDate(-1)
             }
 
