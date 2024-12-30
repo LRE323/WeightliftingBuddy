@@ -6,6 +6,7 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.DatePicker
@@ -176,9 +177,10 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     private fun onExerciseSelected(exerciseSelected: Exercise) {
         val exerciseView = layoutInflater.inflate(R.layout.layout_exercise_session_logged, null)
         exerciseView.findViewById<TextView>(R.id.tv_exercise_name).text = exerciseSelected.exerciseName
-        binding?.llSelectedExercises?.apply {
-            addView(exerciseView)
-            nsvExercisesLogged?.visibility = VISIBLE
+        binding?.apply {
+            llSelectedExercises.addView(exerciseView)
+            nsvExercisesLogged.visibility = VISIBLE
+            homePageNoWorkoutMessage.visibility = GONE
         }
     }
 }
