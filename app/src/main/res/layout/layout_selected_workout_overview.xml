@@ -47,11 +47,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder">
 
+<!-- This View should hold all Exercises that have been selected for this workout date -->
             <LinearLayout
                 android:visibility="gone"
                 tools:visibility="visible"
                 android:paddingHorizontal="16dp"
-                android:id="@+id/fofofofo"
+                android:id="@+id/ll_selected_exercises"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

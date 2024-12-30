@@ -6,19 +6,21 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.weightliftingbuddy.GeneralUtilities
+import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
@@ -38,12 +40,15 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     private var tvWorkoutDate: TextView? = null
     private var iconWorkoutDateNext: ImageView? = null
     private var iconWorkoutDatePrevious: ImageView? = null
+    private var nsvExercisesLogged: NestedScrollView? = null
 
     private val chooseExerciseToLogResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.apply {
                 val exerciseSelected = this.getParcelableExtra<Exercise>(SELECTED_EXERCISE)
-                Toast.makeText(requireContext(), "Selected ${exerciseSelected?.exerciseName}", Toast.LENGTH_SHORT).show()
+                if (exerciseSelected != null) {
+                    onExerciseSelected(exerciseSelected)
+                }
             }
         }
     }
@@ -98,6 +103,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
             tvWorkoutDate = this.layoutWorkoutDateArea.workoutDate
             iconWorkoutDateNext = this.layoutWorkoutDateArea.workoutDateNext
             iconWorkoutDatePrevious = this.layoutWorkoutDateArea.workoutDatePrevious
+            this@SelectedDateOverviewFragment.nsvExercisesLogged = nsvExercisesLogged
         }
     }
 
@@ -161,5 +167,18 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         val calendar = Calendar.Builder().build()
         calendar.set(year, month, dayOfMonth)
         viewModel?.liveDataSelectedDate?.value = calendar
+    }
+
+    /**
+     * Prepares and shows the Views displaying Exercise data after the user has selected an Exercise.
+     * @param exerciseSelected The exercise that was selected
+     */
+    private fun onExerciseSelected(exerciseSelected: Exercise) {
+        val exerciseView = layoutInflater.inflate(R.layout.layout_exercise_session_logged, null)
+        exerciseView.findViewById<TextView>(R.id.tv_exercise_name).text = exerciseSelected.exerciseName
+        binding?.llSelectedExercises?.apply {
+            visibility = VISIBLE
+            addView(exerciseView)
+        }
     }
 }
