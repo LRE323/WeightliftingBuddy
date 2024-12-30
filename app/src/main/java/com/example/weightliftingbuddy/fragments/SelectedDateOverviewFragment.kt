@@ -177,8 +177,8 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         val exerciseView = layoutInflater.inflate(R.layout.layout_exercise_session_logged, null)
         exerciseView.findViewById<TextView>(R.id.tv_exercise_name).text = exerciseSelected.exerciseName
         binding?.llSelectedExercises?.apply {
-            visibility = VISIBLE
             addView(exerciseView)
+            nsvExercisesLogged?.visibility = VISIBLE
         }
     }
 }
