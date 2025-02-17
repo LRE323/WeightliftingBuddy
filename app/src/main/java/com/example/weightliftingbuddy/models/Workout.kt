@@ -19,11 +19,4 @@ class Workout(
 
         }
     }
-
-    fun printInfo(logTag: String = "Luis") {
-        Log.i(logTag, "------ ${GeneralUtilities.getFormattedWorkoutDate(workoutDate)} ------")
-        listOfExerciseSessions.forEach {
-            it.printInfo(logTag)
-        }
-    }
 }

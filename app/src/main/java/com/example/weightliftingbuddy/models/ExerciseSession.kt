@@ -17,11 +17,4 @@ class ExerciseSession(
             return ExerciseSession(Exercise("Squat"), exerciseSets)
         }
     }
-
-    fun printInfo(logTag: String = "Luis") {
-        Log.i(logTag, "--- ${exercise?.exerciseName?.uppercase()} ---")
-        listOfExerciseSets?.forEach {
-            it.printInfo(logTag)
-        }
-    }
 }
