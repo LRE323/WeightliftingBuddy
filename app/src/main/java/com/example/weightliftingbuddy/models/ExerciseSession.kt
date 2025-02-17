@@ -1,7 +1,5 @@
 package com.example.weightliftingbuddy.models
 
-import android.util.Log
-
 class ExerciseSession(
     var exercise: Exercise? = null,
     var listOfExerciseSets: ArrayList<ExerciseSet>? = null) {
