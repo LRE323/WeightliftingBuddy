@@ -22,9 +22,6 @@ import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
-import com.example.weightliftingbuddy.models.ExerciseSession
-import com.example.weightliftingbuddy.models.ExerciseSet
-import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
