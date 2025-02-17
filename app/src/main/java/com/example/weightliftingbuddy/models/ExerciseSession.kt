@@ -9,5 +9,5 @@ data class ExerciseSession(
     var listOfExerciseSets: ArrayList<ExerciseSet>? = null) {
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    var id: Int = 0
 }
