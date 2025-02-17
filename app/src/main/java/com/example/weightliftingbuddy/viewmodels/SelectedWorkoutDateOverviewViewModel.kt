@@ -48,4 +48,23 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
             liveDataSelectedDate.postValue(this)
         }
     }
+
+    fun insertWorkout(workout: Workout) {
+        CoroutineScope(Dispatchers.IO).launch {
+            workoutRepository.insertWorkout(workout)
+        }
+    }
+
+    fun deleteWorkout(workout: Workout) {
+        CoroutineScope(Dispatchers.IO).launch {
+            workoutRepository.deleteWorkout(workout)
+        }
+    }
+
+    fun updateWorkout(workout: Workout) {
+        CoroutineScope(Dispatchers.IO).launch {
+            workoutRepository.updateWorkout(workout)
+        }
+    }
+
 }
