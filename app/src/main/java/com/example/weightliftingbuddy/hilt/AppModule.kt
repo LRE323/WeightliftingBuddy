@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.hilt
 
 import android.content.Context
 import androidx.room.Room
