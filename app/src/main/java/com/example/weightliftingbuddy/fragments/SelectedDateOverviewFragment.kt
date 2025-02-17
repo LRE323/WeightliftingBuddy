@@ -14,7 +14,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.weightliftingbuddy.GeneralUtilities
@@ -27,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
+class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     
     // ViewModel stuff
     private val viewModel: SelectedWorkoutDateOverviewViewModel by viewModels()
@@ -54,11 +53,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         const val SELECTED_EXERCISE = "SELECTED_EXERCISE"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,47 +61,14 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         return binding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initObservers()
-        initViews()
+    override fun initBinding() {
+        binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
     }
 
-    private fun initViews() {
+    override fun setOnClickListeners() {
         binding?.apply {
             initViewVariables(this)
         }
-        setOnClickListeners()
-    }
-
-    private fun initViewVariables(binding: LayoutSelectedWorkoutOverviewBinding) {
-        binding.apply {
-            tvWorkoutDate = this.layoutWorkoutDateArea.workoutDate
-            iconWorkoutDateNext = this.layoutWorkoutDateArea.workoutDateNext
-            iconWorkoutDatePrevious = this.layoutWorkoutDateArea.workoutDatePrevious
-            this@SelectedDateOverviewFragment.nsvExercisesLogged = nsvExercisesLogged
-        }
-    }
-
-    private fun initObservers() {
-        viewModel.apply {
-
-            liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
-        }
-    }
-
-    private fun launchChooseExerciseToLogActivity(exercisesCreated: ArrayList<Exercise>) {
-        val intent = ChooseExerciseToLogActivity.getIntent(requireContext(), exercisesCreated)
-        chooseExerciseToLogResult.launch(intent)
-    }
-
-    private val onDateSelected = Observer<Calendar> {
-        binding?.apply {
-            tvWorkoutDate?.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
-        }
-    }
-
-    private fun setOnClickListeners() {
         binding?.apply {
             tvWorkoutDate?.setOnClickListener(onClickWorkoutDate)
 
@@ -120,6 +81,32 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
             }
 
             fabLogWorkout.setOnClickListener { /* Open exercise list screen */ }
+        }
+    }
+
+    override fun initObservers() {
+        viewModel.apply {
+            liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
+        }
+    }
+
+    private fun initViewVariables(binding: LayoutSelectedWorkoutOverviewBinding) {
+        binding.apply {
+            tvWorkoutDate = this.layoutWorkoutDateArea.workoutDate
+            iconWorkoutDateNext = this.layoutWorkoutDateArea.workoutDateNext
+            iconWorkoutDatePrevious = this.layoutWorkoutDateArea.workoutDatePrevious
+            this@SelectedDateOverviewFragment.nsvExercisesLogged = nsvExercisesLogged
+        }
+    }
+
+    private fun launchChooseExerciseToLogActivity(exercisesCreated: ArrayList<Exercise>) {
+        val intent = ChooseExerciseToLogActivity.getIntent(requireContext(), exercisesCreated)
+        chooseExerciseToLogResult.launch(intent)
+    }
+
+    private val onDateSelected = Observer<Calendar> {
+        binding?.apply {
+            tvWorkoutDate?.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
         }
     }
 
@@ -159,5 +146,9 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
             nsvExercisesLogged.visibility = VISIBLE
             homePageNoWorkoutMessage.visibility = GONE
         }
+    }
+
+    override fun setBindingNull() {
+        binding = null
     }
 }
