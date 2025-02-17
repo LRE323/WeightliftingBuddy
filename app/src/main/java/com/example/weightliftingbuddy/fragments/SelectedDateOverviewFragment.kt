@@ -3,12 +3,9 @@ package com.example.weightliftingbuddy.fragments
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
