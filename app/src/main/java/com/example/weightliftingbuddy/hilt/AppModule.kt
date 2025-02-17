@@ -19,7 +19,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideExerciseDatabase(@ApplicationContext context: Context): GeneralDatabase {
-    return Room.databaseBuilder(context, GeneralDatabase::class.java, GeneralDatabase.NAME).build()
+        return Room.databaseBuilder(context, GeneralDatabase::class.java, GeneralDatabase.NAME)
+            .build()
     }
 
     @Provides
