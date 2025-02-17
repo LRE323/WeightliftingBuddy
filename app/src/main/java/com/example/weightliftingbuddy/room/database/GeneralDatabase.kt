@@ -9,7 +9,7 @@ import com.example.weightliftingbuddy.room.dao.ExerciseDao
     entities = [Exercise::class],
     version = 1
 )
-abstract class ExerciseDatabase: RoomDatabase() {
+abstract class GeneralDatabase: RoomDatabase() {
 
     companion object {
         const val NAME = "exercise.database"

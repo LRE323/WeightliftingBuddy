@@ -25,14 +25,14 @@ import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
-import com.example.weightliftingbuddy.room.database.ExerciseDatabase
+import com.example.weightliftingbuddy.room.database.GeneralDatabase
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import java.util.Calendar
 
 class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     
     // ViewModel stuff
-    private var exerciseDatabase: ExerciseDatabase? = null
+    private var generalDatabase: GeneralDatabase? = null
     private var lazyViewModel: Lazy<SelectedWorkoutDateOverviewViewModel>? = null
     private var viewModel: SelectedWorkoutDateOverviewViewModel? = null
 
@@ -61,7 +61,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.apply {
-            exerciseDatabase = Room.databaseBuilder(applicationContext, ExerciseDatabase::class.java, ExerciseDatabase.NAME).build()
+            generalDatabase = Room.databaseBuilder(applicationContext, GeneralDatabase::class.java, GeneralDatabase.NAME).build()
         }
         initViewModel()
         binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
@@ -79,7 +79,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         lazyViewModel = activity?.viewModels<SelectedWorkoutDateOverviewViewModel>(factoryProducer = {
             object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return exerciseDatabase?.exerciseDao?.let { SelectedWorkoutDateOverviewViewModel(it) } as T
+                    return generalDatabase?.exerciseDao?.let { SelectedWorkoutDateOverviewViewModel(it) } as T
                 }
             }
         })
