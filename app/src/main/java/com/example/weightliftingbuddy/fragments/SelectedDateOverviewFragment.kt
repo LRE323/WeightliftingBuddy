@@ -112,10 +112,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
         viewModel?.apply {
 
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
-
-            createdExercises.observe(viewLifecycleOwner){
-                it.getContentIfNotHandled()?.apply { launchChooseExerciseToLogActivity(ArrayList(this)) }
-            }
         }
     }
 
@@ -142,7 +138,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
                 viewModel?.incrementSelectedWorkoutDate(-1)
             }
 
-            fabLogWorkout.setOnClickListener { viewModel?.fetchCreatedExercises() }
+            fabLogWorkout.setOnClickListener { /* Open exercise list screen */ }
         }
     }
 

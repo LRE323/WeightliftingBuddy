@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class SelectedWorkoutDateOverviewViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
+class SelectedWorkoutDateOverviewViewModel  (private val exerciseDao: ExerciseDao): ViewModel() {
     /**
      * The current date that has been set or selected, either by default or by the user
      */
@@ -42,13 +42,6 @@ class SelectedWorkoutDateOverviewViewModel(private val exerciseDao: ExerciseDao)
         workoutDateToSet?.apply {
             add(Calendar.DAY_OF_MONTH, by)
             liveDataSelectedDate.postValue(this)
-        }
-    }
-
-    fun fetchCreatedExercises() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val createdExercises = exerciseDao.fetchCreatedExercisesAlphabeticallyOrdered()
-            _createdExercises.postValue(Event(createdExercises))
         }
     }
 }
