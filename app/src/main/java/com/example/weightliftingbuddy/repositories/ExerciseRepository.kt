@@ -2,8 +2,9 @@ package com.example.weightliftingbuddy.repositories
 
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.dao.ExerciseDao
+import javax.inject.Inject
 
-class ExerciseRepository(private val exerciseDao: ExerciseDao) {
+class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDao) {
 
     suspend fun insertExercise(exercise: Exercise) {
         exerciseDao.insertExercise(exercise)
