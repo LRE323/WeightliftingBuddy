@@ -24,11 +24,6 @@ object AppModule {
     }
 
     @Provides
-    fun provideExerciseDao(generalDatabase: GeneralDatabase): ExerciseDao {
-        return generalDatabase.exerciseDao
-    }
-
-    @Provides
     fun provideExerciseRepository(exerciseDao: ExerciseDao): ExerciseRepository {
         return ExerciseRepository(exerciseDao)
     }
