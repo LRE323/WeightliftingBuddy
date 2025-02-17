@@ -6,9 +6,7 @@ import com.example.weightliftingbuddy.models.ExerciseSet
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ExerciseSessionTypeConverters {
-    private val gson = Gson()
-
+class ExerciseSessionTypeConverters: BaseTypeConverter() {
     @TypeConverter
     fun fromExercise(exercise: Exercise?): String? {
         return exercise?.exerciseName
