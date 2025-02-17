@@ -12,7 +12,7 @@ import com.example.weightliftingbuddy.models.Workout
 interface WorkoutDao {
 
     @Query("SELECT * FROM workout ORDER BY workoutDate")
-    suspend fun getAllWorkouts(): List<Workout>
+    suspend fun fetchWorkouts(): List<Workout>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorkout(workout: Workout)

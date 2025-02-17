@@ -1,12 +1,14 @@
 package com.example.weightliftingbuddy.repositories
 
-import androidx.room.Delete
-import androidx.room.Update
 import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.room.dao.WorkoutDao
 import javax.inject.Inject
 
 class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) {
+
+    suspend fun fetchWorkouts(): List<Workout> {
+        return workoutDao.fetchWorkouts()
+    }
 
     suspend fun insertWorkout(workout: Workout) {
         workoutDao.insertWorkout(workout)

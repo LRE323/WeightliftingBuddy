@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.repositories.WorkoutRepository
-import com.example.weightliftingbuddy.room.dao.ExerciseDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +25,10 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
      */
     val liveDataWorkoutForSelectedDate: MutableLiveData<Workout> = MutableLiveData()
 
-    val liveDataListOfWorkouts: MutableLiveData<ArrayList<Workout>> = MutableLiveData()
+    /**
+     * List of all recorded workouts.
+     */
+    val workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
 
     private val _createdExercises: MutableLiveData<Event<List<Exercise>>> = MutableLiveData()
     val createdExercises: LiveData<Event<List<Exercise>>> get() = _createdExercises
@@ -46,6 +48,12 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         workoutDateToSet?.apply {
             add(Calendar.DAY_OF_MONTH, by)
             liveDataSelectedDate.postValue(this)
+        }
+    }
+
+    fun fetchWorkouts() {
+        CoroutineScope(Dispatchers.IO).launch {
+            workoutList.postValue(workoutRepository.fetchWorkouts())
         }
     }
 
