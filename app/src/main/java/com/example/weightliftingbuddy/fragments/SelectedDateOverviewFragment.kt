@@ -90,7 +90,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     }
 
     private fun initObservers() {
-        viewModel?.apply {
+        viewModel.apply {
 
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
         }
@@ -112,11 +112,11 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
             tvWorkoutDate?.setOnClickListener(onClickWorkoutDate)
 
             iconWorkoutDateNext?.setOnClickListener {
-                viewModel?.incrementSelectedWorkoutDate(1)
+                viewModel.incrementSelectedWorkoutDate(1)
             }
 
             iconWorkoutDatePrevious?.setOnClickListener {
-                viewModel?.incrementSelectedWorkoutDate(-1)
+                viewModel.incrementSelectedWorkoutDate(-1)
             }
 
             fabLogWorkout.setOnClickListener { /* Open exercise list screen */ }
@@ -124,7 +124,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
-        val selectedDate = viewModel?.liveDataSelectedDate?.value
+        val selectedDate = viewModel.liveDataSelectedDate.value
         selectedDate?.apply {
             showWorkoutDatePickerDialog(this)
         }
@@ -144,7 +144,7 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val calendar = Calendar.Builder().build()
         calendar.set(year, month, dayOfMonth)
-        viewModel?.liveDataSelectedDate?.value = calendar
+        viewModel.liveDataSelectedDate.value = calendar
     }
 
     /**
