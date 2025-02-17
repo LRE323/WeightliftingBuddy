@@ -5,31 +5,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
+import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.dialogfragments.AddNewExerciseDialog
 import com.example.weightliftingbuddy.models.Exercise
-import com.example.weightliftingbuddy.room.database.ExerciseDatabase
 import com.example.weightliftingbuddy.viewmodels.Event
 import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnLongClickExerciseCallBack {
     private var binding: FragmentExerciseListBinding? = null
-    private var exerciseDatabase: ExerciseDatabase? = null
-    private var lazyViewModel: Lazy<ExerciseListViewModel>? = null
-    private var viewModel: ExerciseListViewModel? = null
+    private val viewModel: ExerciseListViewModel by viewModels()
 
     // RecyclerView stuff
     private var recyclerViewExerciseList: RecyclerView? = null
@@ -37,10 +33,6 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context?.apply {
-            exerciseDatabase = Room.databaseBuilder(applicationContext, ExerciseDatabase::class.java, ExerciseDatabase.NAME).build()
-        }
-        initViewModel()
         binding = FragmentExerciseListBinding.inflate(layoutInflater)
     }
 
@@ -71,17 +63,6 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
             adapter = adapterExerciseList
             layoutManager = LinearLayoutManager(requireContext())
         }
-    }
-
-    private fun initViewModel() {
-        lazyViewModel = activity?.viewModels<ExerciseListViewModel>(factoryProducer = {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return exerciseDatabase?.dao?.let { ExerciseListViewModel(it) } as T
-                }
-            }
-        })
-        viewModel = lazyViewModel?.value
     }
 
     private fun initObservers() {

@@ -11,7 +11,9 @@ import com.example.weightliftingbuddy.fragments.HistoryFragment
 import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
     private var binding: LayoutActivityHomeBinding? = null
     private var bottomNavigationView: BottomNavigationView? = null

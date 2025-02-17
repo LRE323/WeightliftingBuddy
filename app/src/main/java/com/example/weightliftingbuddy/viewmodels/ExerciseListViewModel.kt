@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.room.dao.ExerciseDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
+@HiltViewModel
+class ExerciseListViewModel @Inject constructor (private val exerciseDao: ExerciseDao): ViewModel() {
     val exerciseList: MutableLiveData<List<Exercise>> = MutableLiveData()
 
     private val _onDeleteExerciseSuccess: MutableLiveData<Event<Boolean>> = MutableLiveData()
