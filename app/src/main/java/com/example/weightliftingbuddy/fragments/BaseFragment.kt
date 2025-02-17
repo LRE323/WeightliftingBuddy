@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
 abstract class BaseFragment: Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -14,7 +16,7 @@ abstract class BaseFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initBinding()
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return getBinding()?.root
     }
 
     abstract fun initBinding()
@@ -38,4 +40,6 @@ abstract class BaseFragment: Fragment() {
      * Called in onDestroyView to prevent memory leaks
      */
     abstract fun setBindingNull()
+
+    abstract fun getBinding(): ViewDataBinding?
 }

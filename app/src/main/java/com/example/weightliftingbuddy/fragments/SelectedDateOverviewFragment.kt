@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.NestedScrollView
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.weightliftingbuddy.GeneralUtilities
@@ -51,14 +52,6 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
 
     companion object {
         const val SELECTED_EXERCISE = "SELECTED_EXERCISE"
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return binding?.root
     }
 
     override fun initBinding() {
@@ -150,5 +143,9 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
 
     override fun setBindingNull() {
         binding = null
+    }
+
+    override fun getBinding(): ViewDataBinding? {
+        return binding
     }
 }
