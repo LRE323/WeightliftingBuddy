@@ -2,23 +2,33 @@ package com.example.weightliftingbuddy.room.typeconverter
 
 import androidx.room.TypeConverter
 import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.models.ExerciseSet
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class ExerciseSessionTypeConverters {
+    private val gson = Gson()
 
     @TypeConverter
-    fun exerciseToArray(exercise: Exercise): Array<String> {
-        return arrayOf(
-            exercise.exerciseName
-        )
+    fun fromExercise(exercise: Exercise?): String? {
+        return exercise?.exerciseName
     }
 
     @TypeConverter
-    fun arrayToExercise(array: Array<String>): Exercise {
-        try {
-            val exerciseName = array[0]
-            return Exercise(exerciseName)
-        } catch (exception: Exception) {
-            throw java.lang.Exception("TypeConverterFailure: Failed to convert Array to Exercise")
-        }
+    fun toExercise(exerciseName: String?): Exercise? {
+        return exerciseName?.let { Exercise(it) }
     }
+
+    @TypeConverter
+    fun fromExerciseSetList(list: ArrayList<ExerciseSet>?): String {
+        return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun toExerciseSetList(data: String?): ArrayList<ExerciseSet>? {
+        if (data.isNullOrEmpty()) return arrayListOf()
+        val listType = object : TypeToken<ArrayList<ExerciseSet>>() {}.type
+        return gson.fromJson(data, listType)
+    }
+
 }
