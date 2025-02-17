@@ -13,28 +13,27 @@ import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
 import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
-import com.example.weightliftingbuddy.room.database.GeneralDatabase
+import com.example.weightliftingbuddy.models.ExerciseSession
+import com.example.weightliftingbuddy.models.ExerciseSet
+import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
+@AndroidEntryPoint
 class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     
     // ViewModel stuff
-    private var generalDatabase: GeneralDatabase? = null
-    private var lazyViewModel: Lazy<SelectedWorkoutDateOverviewViewModel>? = null
-    private var viewModel: SelectedWorkoutDateOverviewViewModel? = null
+    private val viewModel: SelectedWorkoutDateOverviewViewModel by viewModels()
 
     // Binding and Views
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
@@ -60,10 +59,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context?.apply {
-            generalDatabase = Room.databaseBuilder(applicationContext, GeneralDatabase::class.java, GeneralDatabase.NAME).build()
-        }
-        initViewModel()
         binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
     }
 
@@ -73,17 +68,6 @@ class SelectedDateOverviewFragment : Fragment(), OnDateSetListener {
     ): View? {
         // Inflate the layout for this fragment
         return binding?.root
-    }
-
-    private fun initViewModel() {
-        lazyViewModel = activity?.viewModels<SelectedWorkoutDateOverviewViewModel>(factoryProducer = {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return generalDatabase?.exerciseDao?.let { SelectedWorkoutDateOverviewViewModel(it) } as T
-                }
-            }
-        })
-        viewModel = lazyViewModel?.value
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

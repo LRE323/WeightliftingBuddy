@@ -3,7 +3,9 @@ package com.example.weightliftingbuddy.hilt
 import android.content.Context
 import androidx.room.Room
 import com.example.weightliftingbuddy.repositories.ExerciseRepository
+import com.example.weightliftingbuddy.repositories.WorkoutRepository
 import com.example.weightliftingbuddy.room.dao.ExerciseDao
+import com.example.weightliftingbuddy.room.dao.WorkoutDao
 import com.example.weightliftingbuddy.room.database.GeneralDatabase
 import dagger.Module
 import dagger.Provides
@@ -17,7 +19,7 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    @Singleton
+    @Singleton // TODO: Rename this
     fun provideExerciseDatabase(@ApplicationContext context: Context): GeneralDatabase {
         return Room.databaseBuilder(context, GeneralDatabase::class.java, GeneralDatabase.NAME)
             .build()
@@ -26,5 +28,10 @@ object AppModule {
     @Provides
     fun provideExerciseRepository(exerciseDao: ExerciseDao): ExerciseRepository {
         return ExerciseRepository(exerciseDao)
+    }
+
+    @Provides
+    fun provideWorkoutRepository(workoutDao: WorkoutDao): WorkoutRepository {
+        return WorkoutRepository(workoutDao)
     }
 }

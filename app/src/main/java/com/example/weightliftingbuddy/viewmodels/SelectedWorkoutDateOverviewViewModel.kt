@@ -5,13 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.models.Workout
+import com.example.weightliftingbuddy.repositories.WorkoutRepository
 import com.example.weightliftingbuddy.room.dao.ExerciseDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import javax.inject.Inject
 
-class SelectedWorkoutDateOverviewViewModel  (private val exerciseDao: ExerciseDao): ViewModel() {
+@HiltViewModel
+class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val workoutRepository: WorkoutRepository): ViewModel() {
     /**
      * The current date that has been set or selected, either by default or by the user
      */
