@@ -25,7 +25,7 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
             exerciseDao.apply {
                 insertExercise(exercise)
                 // TODO: Should not post value if nothing is inserted.
-                exerciseList.postValue(fetchCreatedExercises())
+                exerciseList.postValue(fetchCreatedExercisesAlphabeticallyOrdered())
                 _onCreateNewExerciseSuccess.postValue(Event(exercise))
             }
         }
@@ -42,7 +42,7 @@ class ExerciseListViewModel(private val exerciseDao: ExerciseDao): ViewModel() {
 
     fun fetchExercises() {
         CoroutineScope(Dispatchers.IO).launch {
-            val fetchedExerciseList = exerciseDao.fetchCreatedExercises()
+            val fetchedExerciseList = exerciseDao.fetchCreatedExercisesAlphabeticallyOrdered()
             exerciseList.postValue(fetchedExerciseList)
         }
     }

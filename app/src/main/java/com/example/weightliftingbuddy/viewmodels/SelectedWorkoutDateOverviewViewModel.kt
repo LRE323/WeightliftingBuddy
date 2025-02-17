@@ -47,7 +47,7 @@ class SelectedWorkoutDateOverviewViewModel(private val exerciseDao: ExerciseDao)
 
     fun fetchCreatedExercises() {
         CoroutineScope(Dispatchers.IO).launch {
-            val createdExercises = exerciseDao.fetchCreatedExercises()
+            val createdExercises = exerciseDao.fetchCreatedExercisesAlphabeticallyOrdered()
             _createdExercises.postValue(Event(createdExercises))
         }
     }
