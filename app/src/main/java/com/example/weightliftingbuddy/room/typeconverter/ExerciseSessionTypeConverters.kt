@@ -3,7 +3,7 @@ package com.example.weightliftingbuddy.room.typeconverter
 import androidx.room.TypeConverter
 import com.example.weightliftingbuddy.models.Exercise
 
-class ExerciseTypeConverter {
+class ExerciseSessionTypeConverters {
 
     @TypeConverter
     fun exerciseToArray(exercise: Exercise): Array<String> {
