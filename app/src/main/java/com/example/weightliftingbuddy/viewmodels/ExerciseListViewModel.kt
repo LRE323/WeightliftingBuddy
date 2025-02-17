@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weightliftingbuddy.models.Exercise
-import com.example.weightliftingbuddy.room.dao.ExerciseDao
+import com.example.weightliftingbuddy.repositories.ExerciseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ExerciseListViewModel @Inject constructor (private val exerciseDao: ExerciseDao): ViewModel() {
+class ExerciseListViewModel @Inject constructor (private val exerciseRepository: ExerciseRepository): ViewModel() {
     val exerciseList: MutableLiveData<List<Exercise>> = MutableLiveData()
 
     private val _onDeleteExerciseSuccess: MutableLiveData<Event<Boolean>> = MutableLiveData()
@@ -25,7 +25,7 @@ class ExerciseListViewModel @Inject constructor (private val exerciseDao: Exerci
 
     fun saveExercise(exercise: Exercise) {
         CoroutineScope(Dispatchers.IO).launch {
-            exerciseDao.apply {
+            exerciseRepository.apply {
                 insertExercise(exercise)
                 // TODO: Should not post value if nothing is inserted.
                 exerciseList.postValue(fetchCreatedExercisesAlphabeticallyOrdered())
@@ -37,7 +37,7 @@ class ExerciseListViewModel @Inject constructor (private val exerciseDao: Exerci
     fun deleteExercise(exercise: Exercise?) {
         if (exercise != null) {
             CoroutineScope(Dispatchers.IO).launch {
-                exerciseDao.deleteExercise(exercise)
+                exerciseRepository.deleteExercise(exercise)
                 _onDeleteExerciseSuccess.postValue(Event(true))
             }
         }
@@ -45,8 +45,7 @@ class ExerciseListViewModel @Inject constructor (private val exerciseDao: Exerci
 
     fun fetchExercises() {
         CoroutineScope(Dispatchers.IO).launch {
-            val fetchedExerciseList = exerciseDao.fetchCreatedExercisesAlphabeticallyOrdered()
-            exerciseList.postValue(fetchedExerciseList)
+            exerciseList.postValue(exerciseRepository.fetchCreatedExercisesAlphabeticallyOrdered())
         }
     }
 }
