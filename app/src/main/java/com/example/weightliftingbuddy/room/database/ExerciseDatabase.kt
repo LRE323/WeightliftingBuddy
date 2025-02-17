@@ -15,5 +15,5 @@ abstract class ExerciseDatabase: RoomDatabase() {
         const val NAME = "exercise.database"
     }
 
-    abstract val dao: ExerciseDao
+    abstract val exerciseDao: ExerciseDao
 }

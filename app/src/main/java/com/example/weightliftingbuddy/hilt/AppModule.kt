@@ -24,7 +24,7 @@ object AppModule {
 
     @Provides
     fun provideExerciseDao(exerciseDatabase: ExerciseDatabase): ExerciseDao {
-        return exerciseDatabase.dao
+        return exerciseDatabase.exerciseDao
     }
 
     @Provides
