@@ -1,12 +1,18 @@
 package com.example.weightliftingbuddy.models
 
 import android.util.Log
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlin.random.Random
 
+@Entity
 class ExerciseSet(
     var repetitions: Int = 0,
     var weight: Double = 0.0
 ) {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 
     companion object {
         fun buildDummyLiftSet(): ExerciseSet {
