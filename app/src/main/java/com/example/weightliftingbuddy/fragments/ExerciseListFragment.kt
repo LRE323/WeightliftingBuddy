@@ -48,7 +48,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initObservers()
-        viewModel?.fetchExercises()
+        viewModel.fetchExercises()
     }
 
     private fun initViews() {
@@ -66,7 +66,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     }
 
     private fun initObservers() {
-        viewModel?.apply {
+        viewModel.apply {
             exerciseList.observe(viewLifecycleOwner) {
                 binding?.apply {
                     val noExercisesAddedLayout = layoutNoExercisesAdded.parent
@@ -97,10 +97,10 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     private val onDeleteExerciseObserver = Observer<Event<Boolean>> {
         it.getContentIfNotHandled()?.apply {
             view?.apply {
-                Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel?.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(this, getString(R.string.snack_bar_msg_deleted_exercise, viewModel.exerciseToDelete?.exerciseName), Snackbar.LENGTH_SHORT).show()
             }
-            viewModel?.fetchExercises()
-            viewModel?.exerciseToDelete = null
+            viewModel.fetchExercises()
+            viewModel.exerciseToDelete = null
         }
     }
 
@@ -115,11 +115,11 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     override fun onValidateNewExerciseSuccess(addNewExerciseDialog: AlertDialog,
                                               exerciseCreated: Exercise) {
         addNewExerciseDialog.dismiss()
-        viewModel?.saveExercise(exerciseCreated)
+        viewModel.saveExercise(exerciseCreated)
     }
 
     override fun onLongClickExercise(exerciseClicked: Exercise, position: Int) {
-        viewModel?.apply {
+        viewModel.apply {
             exerciseToDelete = exerciseClicked
             getConfirmDeleteExerciseDialog().show()
         }
@@ -128,7 +128,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     private fun getConfirmDeleteExerciseDialog(): AlertDialog {
         val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
         dialogBuilder.apply {
-            val exerciseToDeleteName = viewModel?.exerciseToDelete?.exerciseName
+            val exerciseToDeleteName = viewModel.exerciseToDelete?.exerciseName
             setTitle(getString(R.string.confirm_delete_exercise_dialog_title))
             setMessage(exerciseToDeleteName)
             setPositiveButton(getString(R.string.confirm_delete_exercise_dialog_positive_button), onConfirmDeleteExercise)
@@ -138,12 +138,12 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     }
 
     private val onCancelDeleteExercise = DialogInterface.OnClickListener{_, _ ->
-        viewModel?.exerciseToDelete = null
+        viewModel.exerciseToDelete = null
     }
 
     private val onConfirmDeleteExercise =
         DialogInterface.OnClickListener { _, _ ->
-            viewModel?.apply {
+            viewModel.apply {
                 deleteExercise(exerciseToDelete)
             }
         }
