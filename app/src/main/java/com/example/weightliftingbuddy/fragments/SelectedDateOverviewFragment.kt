@@ -10,7 +10,6 @@ import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,21 +19,15 @@ import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
 class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     
-    // ViewModel stuff
     private val viewModel: SelectedWorkoutDateOverviewViewModel by viewModels()
-
-    // Binding and Views
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
-    private var tvWorkoutDate: TextView? = null
-    private var iconWorkoutDateNext: ImageView? = null
-    private var iconWorkoutDatePrevious: ImageView? = null
-    private var nsvExercisesLogged: NestedScrollView? = null
 
     private val chooseExerciseToLogResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -56,36 +49,22 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     }
 
     override fun setOnClickListeners() {
-        binding?.apply {
-            initViewVariables(this)
+        getWorkoutDateTextView()?.setOnClickListener(onClickWorkoutDate)
+
+        getWorkoutDateNextIcon()?.setOnClickListener {
+            viewModel.incrementSelectedWorkoutDate(1)
         }
-        binding?.apply {
-            tvWorkoutDate?.setOnClickListener(onClickWorkoutDate)
 
-            iconWorkoutDateNext?.setOnClickListener {
-                viewModel.incrementSelectedWorkoutDate(1)
-            }
-
-            iconWorkoutDatePrevious?.setOnClickListener {
-                viewModel.incrementSelectedWorkoutDate(-1)
-            }
-
-            fabLogWorkout.setOnClickListener { /* Open exercise list screen */ }
+        getWorkoutDatePreviousIcon()?.setOnClickListener {
+            viewModel.incrementSelectedWorkoutDate(-1)
         }
+
+        getLogWorkoutFab()?.setOnClickListener { /* Open exercise list screen */ }
     }
 
     override fun initObservers() {
         viewModel.apply {
             liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
-        }
-    }
-
-    private fun initViewVariables(binding: LayoutSelectedWorkoutOverviewBinding) {
-        binding.apply {
-            tvWorkoutDate = this.layoutWorkoutDateArea.workoutDate
-            iconWorkoutDateNext = this.layoutWorkoutDateArea.workoutDateNext
-            iconWorkoutDatePrevious = this.layoutWorkoutDateArea.workoutDatePrevious
-            this@SelectedDateOverviewFragment.nsvExercisesLogged = nsvExercisesLogged
         }
     }
 
@@ -96,7 +75,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
 
     private val onDateSelected = Observer<Calendar> {
         binding?.apply {
-            tvWorkoutDate?.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
+            getWorkoutDateTextView()?.text = GeneralUtilities.getFormattedWorkoutDate(it.time)
         }
     }
 
@@ -144,5 +123,21 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
 
     override fun getBinding(): ViewDataBinding? {
         return binding
+    }
+
+    private fun getWorkoutDateTextView(): TextView? {
+        return binding?.layoutWorkoutDateArea?.workoutDate
+    }
+
+    private fun getWorkoutDateNextIcon(): ImageView? {
+        return binding?.layoutWorkoutDateArea?.workoutDateNext
+    }
+
+    private fun getWorkoutDatePreviousIcon(): ImageView? {
+        return binding?.layoutWorkoutDateArea?.workoutDatePrevious
+    }
+
+    private fun getLogWorkoutFab(): FloatingActionButton? {
+        return binding?.fabLogWorkout
     }
 }
