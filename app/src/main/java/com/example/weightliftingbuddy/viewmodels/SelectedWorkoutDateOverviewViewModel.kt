@@ -28,7 +28,8 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
     /**
      * List of all recorded workouts.
      */
-    val workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
+    val _workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
+
 
     private val _createdExercises: MutableLiveData<Event<List<Exercise>>> = MutableLiveData()
     val createdExercises: LiveData<Event<List<Exercise>>> get() = _createdExercises
@@ -53,7 +54,7 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
 
     fun fetchWorkouts() {
         CoroutineScope(Dispatchers.IO).launch {
-            workoutList.postValue(workoutRepository.fetchWorkouts())
+            _workoutList.postValue(workoutRepository.fetchWorkouts())
         }
     }
 
