@@ -18,6 +18,7 @@ import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +26,6 @@ import java.util.Calendar
 
 @AndroidEntryPoint
 class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
-    
     private val viewModel: SelectedWorkoutDateOverviewViewModel by viewModels()
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
 
@@ -65,6 +65,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     override fun initObservers() {
         viewModel.apply {
             selectedDate.observe(viewLifecycleOwner, onDateSelected)
+            workoutList.observe(viewLifecycleOwner, onWorkoutListReceived)
         }
     }
 
@@ -139,5 +140,8 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
 
     private fun getLogWorkoutFab(): FloatingActionButton? {
         return binding?.fabLogWorkout
+    }
+
+    private val onWorkoutListReceived = Observer<List<Workout>> {
     }
 }
