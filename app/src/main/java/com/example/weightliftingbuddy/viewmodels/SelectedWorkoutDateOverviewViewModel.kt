@@ -28,7 +28,8 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
     /**
      * List of all recorded workouts.
      */
-    val _workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
+    private val _workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
+    val workoutList: LiveData<List<Workout>> get() = _workoutList
 
 
     private val _createdExercises: MutableLiveData<Event<List<Exercise>>> = MutableLiveData()
