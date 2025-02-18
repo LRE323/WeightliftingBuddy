@@ -64,7 +64,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
 
     override fun initObservers() {
         viewModel.apply {
-            liveDataSelectedDate.observe(viewLifecycleOwner, onDateSelected)
+            selectedDate.observe(viewLifecycleOwner, onDateSelected)
         }
     }
 
@@ -80,7 +80,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     }
 
     private val onClickWorkoutDate: View.OnClickListener = View.OnClickListener {
-        val selectedDate = viewModel.liveDataSelectedDate.value
+        val selectedDate = viewModel.selectedDate.value
         selectedDate?.apply {
             showWorkoutDatePickerDialog(this)
         }
@@ -100,7 +100,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val calendar = Calendar.Builder().build()
         calendar.set(year, month, dayOfMonth)
-        viewModel.liveDataSelectedDate.value = calendar
+        viewModel.selectedDate.value = calendar
     }
 
     /**

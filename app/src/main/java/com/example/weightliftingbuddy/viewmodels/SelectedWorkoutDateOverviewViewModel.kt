@@ -18,12 +18,12 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
     /**
      * The current date that has been set or selected, either by default or by the user
      */
-    val liveDataSelectedDate: MutableLiveData<Calendar> = MutableLiveData()
+    val selectedDate: MutableLiveData<Calendar> = MutableLiveData()
 
     /**
      * The workout that was done on the selected date (liveDataSelectedDate).
      */
-    val liveDataWorkoutForSelectedDate: MutableLiveData<Workout> = MutableLiveData()
+    val workoutForSelectedDate: MutableLiveData<Workout> = MutableLiveData()
 
     /**
      * List of all recorded workouts.
@@ -35,7 +35,7 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
 
     init {
         // Set the value of liveDataSelectedDate to today's date by default.
-        liveDataSelectedDate.apply {
+        selectedDate.apply {
             if (this.value == null) {
                 value = Calendar.getInstance()
             }
@@ -44,10 +44,10 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
 
 
     fun incrementSelectedWorkoutDate(by: Int) {
-        val workoutDateToSet = liveDataSelectedDate.value
+        val workoutDateToSet = selectedDate.value
         workoutDateToSet?.apply {
             add(Calendar.DAY_OF_MONTH, by)
-            liveDataSelectedDate.postValue(this)
+            selectedDate.postValue(this)
         }
     }
 
