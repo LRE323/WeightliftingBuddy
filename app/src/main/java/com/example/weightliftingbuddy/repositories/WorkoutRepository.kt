@@ -1,16 +1,22 @@
 package com.example.weightliftingbuddy.repositories
 
+import android.util.Log
 import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.room.dao.WorkoutDao
 import javax.inject.Inject
 
 class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) {
 
+    companion object {
+        private const val LOGTAG = "WorkoutRepository"
+    }
+
     suspend fun fetchWorkouts(): List<Workout> {
         return workoutDao.fetchWorkouts()
     }
 
     suspend fun insertWorkout(workout: Workout) {
+        Log.i(LOGTAG, "Inserting the Workout: $workout")
         workoutDao.insertWorkout(workout)
     }
 
@@ -19,6 +25,7 @@ class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) 
     }
 
     suspend fun updateWorkout(workout: Workout) {
+        Log.i(LOGTAG, "Updating the Workout: $workout")
         workoutDao.updateWorkout(workout)
     }
 
