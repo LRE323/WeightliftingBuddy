@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.activities
+package com.example.weightliftingbuddy.views.activities
 
 import android.os.Bundle
 import android.view.MenuItem

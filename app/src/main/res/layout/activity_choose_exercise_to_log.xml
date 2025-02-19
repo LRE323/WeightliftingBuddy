@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:paddingHorizontal="16dp"
         android:layout_height="match_parent"
-        tools:context=".activities.ChooseExerciseToLogActivity">
+        tools:context=".views.activities.ChooseExerciseToLogActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_exercise_list"

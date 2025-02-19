@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.views.activities
 
 import android.os.Bundle
 import android.os.PersistableBundle

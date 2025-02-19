@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.activities
+package com.example.weightliftingbuddy.views.activities
 
 import android.app.Activity
 import android.os.Bundle
