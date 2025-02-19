@@ -12,7 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.weightliftingbuddy.GeneralUtilities
+import com.example.weightliftingbuddy.utils.GeneralUtilities
 import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.data.models.Exercise

@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy
+package com.example.weightliftingbuddy.utils
 
 import java.text.SimpleDateFormat
 import java.util.Date

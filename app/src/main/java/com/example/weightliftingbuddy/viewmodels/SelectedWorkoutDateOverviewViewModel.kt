@@ -3,7 +3,7 @@ package com.example.weightliftingbuddy.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weightliftingbuddy.GeneralUtilities
+import com.example.weightliftingbuddy.utils.GeneralUtilities
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.Workout
