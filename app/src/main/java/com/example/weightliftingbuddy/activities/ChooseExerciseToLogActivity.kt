@@ -10,7 +10,7 @@ import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBinding
 import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment
-import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.viewmodels.ChooseExerciseToLogViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

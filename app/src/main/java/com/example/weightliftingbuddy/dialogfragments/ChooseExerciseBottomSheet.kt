@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.BottomSheetChooseExerciseBinding
-import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.data.models.Exercise
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /*

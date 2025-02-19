@@ -3,7 +3,7 @@ package com.example.weightliftingbuddy.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.repositories.ExerciseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

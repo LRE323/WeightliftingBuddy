@@ -1,7 +1,7 @@
 package com.example.weightliftingbuddy.repositories
 
 import android.util.Log
-import com.example.weightliftingbuddy.models.Workout
+import com.example.weightliftingbuddy.data.models.Workout
 import com.example.weightliftingbuddy.room.dao.WorkoutDao
 import javax.inject.Inject
 

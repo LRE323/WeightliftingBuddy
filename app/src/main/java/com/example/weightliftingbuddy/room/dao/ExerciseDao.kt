@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.data.models.Exercise
 
 @Dao
 interface ExerciseDao {

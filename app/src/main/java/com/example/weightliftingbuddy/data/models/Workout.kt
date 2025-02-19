@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.models
+package com.example.weightliftingbuddy.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

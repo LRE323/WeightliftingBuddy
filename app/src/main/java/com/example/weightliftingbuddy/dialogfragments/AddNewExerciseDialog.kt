@@ -5,7 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import com.example.weightliftingbuddy.R
-import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.data.models.Exercise
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout

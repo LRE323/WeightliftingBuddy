@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.R
-import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.data.models.Exercise
 
 class ExerciseListAdapter(private var exerciseList: List<Exercise>? = null,
                           var onLongClickExerciseCallBack: OnLongClickExerciseCallBack? = null,

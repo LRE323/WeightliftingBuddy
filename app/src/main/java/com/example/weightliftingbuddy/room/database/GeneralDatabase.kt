@@ -3,10 +3,10 @@ package com.example.weightliftingbuddy.room.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.weightliftingbuddy.models.Exercise
-import com.example.weightliftingbuddy.models.ExerciseSession
-import com.example.weightliftingbuddy.models.ExerciseSet
-import com.example.weightliftingbuddy.models.Workout
+import com.example.weightliftingbuddy.data.models.Exercise
+import com.example.weightliftingbuddy.data.models.ExerciseSession
+import com.example.weightliftingbuddy.data.models.ExerciseSet
+import com.example.weightliftingbuddy.data.models.Workout
 import com.example.weightliftingbuddy.room.dao.ExerciseDao
 import com.example.weightliftingbuddy.room.dao.ExerciseSessionDao
 import com.example.weightliftingbuddy.room.dao.ExerciseSetDao

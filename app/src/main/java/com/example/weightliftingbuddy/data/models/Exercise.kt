@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.models
+package com.example.weightliftingbuddy.data.models
 
 import android.os.Parcel
 import android.os.Parcelable
