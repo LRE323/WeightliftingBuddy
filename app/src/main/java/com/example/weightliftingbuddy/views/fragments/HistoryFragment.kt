@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.fragments
+package com.example.weightliftingbuddy.views.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

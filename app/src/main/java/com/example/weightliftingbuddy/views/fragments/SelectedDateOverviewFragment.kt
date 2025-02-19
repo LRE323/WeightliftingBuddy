@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.fragments
+package com.example.weightliftingbuddy.views.fragments
 
 import android.app.Activity
 import android.app.DatePickerDialog
