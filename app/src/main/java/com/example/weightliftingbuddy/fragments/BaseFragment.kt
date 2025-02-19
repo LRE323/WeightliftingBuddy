@@ -24,8 +24,11 @@ abstract class BaseFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+        initViews()
         setOnClickListeners()
     }
+
+    abstract fun initViews()
 
     override fun onDestroyView() {
         super.onDestroyView()

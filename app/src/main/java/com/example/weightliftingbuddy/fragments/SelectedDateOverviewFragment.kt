@@ -48,6 +48,10 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
         binding = LayoutSelectedWorkoutOverviewBinding.inflate(layoutInflater)
     }
 
+    override fun initViews() {
+        // Nothing to do here
+    }
+
     override fun setOnClickListeners() {
         getWorkoutDateTextView()?.setOnClickListener(onClickWorkoutDate)
 

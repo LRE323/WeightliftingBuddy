@@ -38,7 +38,7 @@ class ExerciseListFragment : BaseFragment(), AddNewExerciseDialog.AddNewExercise
         viewModel.fetchExercises()
     }
 
-    private fun initViews() {
+    override fun initViews() {
         initRecyclerView()
     }
 
