@@ -1,11 +1,9 @@
 package com.example.weightliftingbuddy.activities
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.R
@@ -14,34 +12,20 @@ import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBin
 import com.example.weightliftingbuddy.fragments.SelectedDateOverviewFragment
 import com.example.weightliftingbuddy.models.Exercise
 import com.example.weightliftingbuddy.viewmodels.ChooseExerciseToLogViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnClickExerciseCallBack {
     private var binding: ActivityChooseExerciseToLogBinding? = null
-    private var viewModel: ChooseExerciseToLogViewModel? = null
+    private val viewModel: ChooseExerciseToLogViewModel by viewModels()
 
     // RecyclerView stuff
     private var recyclerViewExerciseList: RecyclerView? = null
     private var adapterExerciseList: ExerciseListAdapter? = null
 
-    companion object {
-        private const val EXERCISE_LIST = "EXERCISE_LIST"
-
-        fun getIntent(context: Context, exerciseList: ArrayList<Exercise>): Intent {
-            val intent = Intent(context, ChooseExerciseToLogActivity::class.java)
-            intent.putParcelableArrayListExtra(EXERCISE_LIST, exerciseList)
-            return intent
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel()
         initObservers()
-    }
-
-    private fun initViewModel() {
-        viewModel = ViewModelProvider(this)[ChooseExerciseToLogViewModel::class.java]
-        viewModel?.init(getExerciseListFromExtras())
     }
 
     private fun initBinding() {
@@ -56,18 +40,17 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
         // Set the title for the action bar.
         supportActionBar?.title = getString(R.string.title_choose_exercise_to_log_activity)
         initBinding()
-
     }
 
     private fun initObservers() {
-        viewModel?.apply {
+        viewModel.apply {
             exerciseList.observe(this@ChooseExerciseToLogActivity){
                 initRecyclerView(it.getContentIfNotHandled())
             }
         }
     }
 
-    private fun initRecyclerView(createdExercises: ArrayList<Exercise>?) {
+    private fun initRecyclerView(createdExercises: List<Exercise>?) {
         // Init the adapter.
         adapterExerciseList = ExerciseListAdapter(createdExercises)
         adapterExerciseList?.onClickExerciseCallBack = this
@@ -78,10 +61,6 @@ class ChooseExerciseToLogActivity : AppCompatActivity(), ExerciseListAdapter.OnC
             adapter = adapterExerciseList
             layoutManager = LinearLayoutManager(this@ChooseExerciseToLogActivity)
         }
-    }
-
-    private fun getExerciseListFromExtras(): ArrayList<Exercise>? {
-        return intent.getParcelableArrayListExtra(EXERCISE_LIST)
     }
 
     override fun onClickExercise(exerciseClicked: Exercise, position: Int) {
