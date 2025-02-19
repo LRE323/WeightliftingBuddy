@@ -34,7 +34,6 @@ class ExerciseListFragment : BaseFragment(), AddNewExerciseDialog.AddNewExercise
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         viewModel.fetchExercises()
     }
 
