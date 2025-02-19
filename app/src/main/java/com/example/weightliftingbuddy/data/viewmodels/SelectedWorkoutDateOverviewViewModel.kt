@@ -134,4 +134,7 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         }
     }
 
+    fun getWorkoutForSelectedDate(): Workout? {
+        return workoutForSelectedDate.value
+    }
 }
