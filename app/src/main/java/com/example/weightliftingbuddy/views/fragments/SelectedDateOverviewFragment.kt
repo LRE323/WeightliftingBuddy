@@ -17,7 +17,7 @@ import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivi
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.Workout
-import com.example.weightliftingbuddy.viewmodels.SelectedWorkoutDateOverviewViewModel
+import com.example.weightliftingbuddy.data.viewmodels.SelectedWorkoutDateOverviewViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar

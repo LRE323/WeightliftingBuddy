@@ -11,7 +11,7 @@ import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.ActivityChooseExerciseToLogBinding
 import com.example.weightliftingbuddy.views.fragments.SelectedDateOverviewFragment
 import com.example.weightliftingbuddy.data.models.Exercise
-import com.example.weightliftingbuddy.viewmodels.ChooseExerciseToLogViewModel
+import com.example.weightliftingbuddy.data.viewmodels.ChooseExerciseToLogViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

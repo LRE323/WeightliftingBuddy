@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.viewmodels
+package com.example.weightliftingbuddy.data.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

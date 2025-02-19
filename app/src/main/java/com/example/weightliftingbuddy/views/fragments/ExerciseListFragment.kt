@@ -14,8 +14,8 @@ import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.views.dialogfragments.AddNewExerciseDialog
 import com.example.weightliftingbuddy.data.models.Exercise
-import com.example.weightliftingbuddy.viewmodels.Event
-import com.example.weightliftingbuddy.viewmodels.ExerciseListViewModel
+import com.example.weightliftingbuddy.data.viewmodels.Event
+import com.example.weightliftingbuddy.data.viewmodels.ExerciseListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

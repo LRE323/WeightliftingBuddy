@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.viewmodels
+package com.example.weightliftingbuddy.data.viewmodels
 
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.
