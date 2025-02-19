@@ -17,7 +17,7 @@ class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) 
 
     suspend fun insertWorkout(workout: Workout) {
         /*
-        TODO: Refactor insertions logic
+        TODO: Refactor insertion logic
         Add logic that will prevent adding the passed Workout if the workoutDate of the passed
         Workout already has a Workout.
          */
