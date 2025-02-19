@@ -3,6 +3,7 @@ package com.example.weightliftingbuddy.fragments
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Intent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -63,7 +64,10 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
             viewModel.incrementSelectedWorkoutDate(-1)
         }
 
-        getLogWorkoutFab()?.setOnClickListener { /* Open exercise list screen */ }
+        getLogWorkoutFab()?.setOnClickListener {
+            val intent = Intent(requireContext(), ChooseExerciseToLogActivity::class.java)
+            chooseExerciseToLogResult.launch(intent)
+        }
     }
 
     override fun initObservers() {
@@ -71,11 +75,6 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
             selectedDate.observe(viewLifecycleOwner, onDateSelected)
             workoutList.observe(viewLifecycleOwner, onWorkoutListReceived)
         }
-    }
-
-    private fun launchChooseExerciseToLogActivity(exercisesCreated: ArrayList<Exercise>) {
-        val intent = ChooseExerciseToLogActivity.getIntent(requireContext(), exercisesCreated)
-        chooseExerciseToLogResult.launch(intent)
     }
 
     private val onDateSelected = Observer<Calendar> {
