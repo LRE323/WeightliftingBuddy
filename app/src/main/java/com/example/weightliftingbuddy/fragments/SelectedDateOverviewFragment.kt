@@ -35,7 +35,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
             result.data?.apply {
                 val exerciseSelected = this.getParcelableExtra<Exercise>(SELECTED_EXERCISE)
                 if (exerciseSelected != null) {
-                    onExerciseSelected(exerciseSelected)
+                    viewModel.onReceiveExerciseSelected(exerciseSelected)
                 }
             }
         }
@@ -73,7 +73,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     override fun initObservers() {
         viewModel.apply {
             selectedDate.observe(viewLifecycleOwner, onDateSelected)
-            workoutList.observe(viewLifecycleOwner, onWorkoutListReceived)
+            workoutForSelectedDate.observe(viewLifecycleOwner, onWorkoutForSelectedDateReceived)
         }
     }
 
@@ -102,23 +102,7 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        val calendar = Calendar.Builder().build()
-        calendar.set(year, month, dayOfMonth)
-        viewModel.selectedDate.value = calendar
-    }
-
-    /**
-     * Prepares and shows the Views displaying Exercise data after the user has selected an Exercise.
-     * @param exerciseSelected The exercise that was selected
-     */
-    private fun onExerciseSelected(exerciseSelected: Exercise) {
-        val exerciseView = layoutInflater.inflate(R.layout.layout_exercise_session_logged, null)
-        exerciseView.findViewById<TextView>(R.id.tv_exercise_name).text = exerciseSelected.exerciseName
-        binding?.apply {
-            llSelectedExercises.addView(exerciseView)
-            nsvExercisesLogged.visibility = VISIBLE
-            homePageNoWorkoutMessage.visibility = GONE
-        }
+        viewModel.onWorkoutDateSet(year, month, dayOfMonth)
     }
 
     override fun setBindingNull() {
@@ -145,6 +129,15 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
         return binding?.fabLogWorkout
     }
 
-    private val onWorkoutListReceived = Observer<List<Workout>> {
+    private val onWorkoutForSelectedDateReceived = Observer<Workout?> { workout ->
+        workout?.listOfExerciseSessions?.forEach { currentExerciseSession ->
+            val exerciseView = layoutInflater.inflate(R.layout.layout_exercise_session_logged, null)
+            exerciseView.findViewById<TextView>(R.id.tv_exercise_name).text = currentExerciseSession.exercise?.exerciseName
+            binding?.apply {
+                llSelectedExercises.addView(exerciseView)
+                nsvExercisesLogged.visibility = VISIBLE
+                homePageNoWorkoutMessage.visibility = GONE
+            }
+        }
     }
 }

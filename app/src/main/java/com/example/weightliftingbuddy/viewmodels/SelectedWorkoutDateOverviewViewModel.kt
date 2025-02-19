@@ -3,7 +3,9 @@ package com.example.weightliftingbuddy.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.models.Exercise
+import com.example.weightliftingbuddy.models.ExerciseSession
 import com.example.weightliftingbuddy.models.Workout
 import com.example.weightliftingbuddy.repositories.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,17 +26,14 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
     /**
      * The workout that was done on the selected date (liveDataSelectedDate).
      */
-    val workoutForSelectedDate: MutableLiveData<Workout> = MutableLiveData()
+    private val _workoutForSelectedDate: MutableLiveData<Workout?> = MutableLiveData()
+    val workoutForSelectedDate: LiveData<Workout?> get() = _workoutForSelectedDate
 
     /**
      * List of all recorded workouts.
      */
     private val _workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
     val workoutList: LiveData<List<Workout>> get() = _workoutList
-
-
-    private val _createdExercises: MutableLiveData<Event<List<Exercise>>> = MutableLiveData()
-    val createdExercises: LiveData<Event<List<Exercise>>> get() = _createdExercises
 
     init {
         // Set the value of liveDataSelectedDate to today's date by default.
@@ -42,8 +42,38 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
                 value = Calendar.getInstance()
             }
         }
+        fetchWorkouts()
     }
 
+    fun onWorkoutDateSet(year: Int, month: Int, dayOfMonth: Int) {
+        // set the new value for selectedDate
+        val calendar = Calendar.Builder().build()
+        calendar.set(year, month, dayOfMonth)
+        selectedDate.value = calendar
+
+        // find and set the workout for the selected date
+        _workoutList.value?.apply {
+            _workoutForSelectedDate.value = findWorkoutForSelectedDate(this, calendar.time)
+        }
+    }
+
+
+    private fun findWorkoutForSelectedDate(workoutList: List<Workout>, selectedDate: Date): Workout? {
+        val formattedSelectedDate = GeneralUtilities.getFormattedWorkoutDate(selectedDate)
+        workoutList.forEach {
+            val formattedCurrentIterationDate = GeneralUtilities.getFormattedWorkoutDate(it.workoutDate)
+
+            if (formattedSelectedDate == formattedCurrentIterationDate) {
+                return it
+            }
+        }
+        return null
+    }
+
+    private fun getNewWorkoutFromExerciseSelected(exerciseSelected: Exercise, workoutDate: Date = Calendar.getInstance().time): Workout {
+        val exerciseSession = ExerciseSession(exercise = exerciseSelected)
+        return Workout(workoutDate, arrayListOf(exerciseSession))
+    }
 
     fun incrementSelectedWorkoutDate(by: Int) {
         val workoutDateToSet = selectedDate.value
@@ -53,15 +83,24 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         }
     }
 
-    fun fetchWorkouts() {
+    private fun fetchWorkouts() {
         CoroutineScope(Dispatchers.IO).launch {
-            _workoutList.postValue(workoutRepository.fetchWorkouts())
+            val workoutList = workoutRepository.fetchWorkouts()
+            _workoutList.postValue(workoutList)
+
+            val selectedDate = selectedDate.value
+            if (selectedDate != null) {
+                _workoutForSelectedDate.postValue(findWorkoutForSelectedDate(workoutList, selectedDate.time))
+            }
         }
     }
 
-    fun insertWorkout(workout: Workout) {
+    private fun insertWorkout(workout: Workout) {
         CoroutineScope(Dispatchers.IO).launch {
             workoutRepository.insertWorkout(workout)
+
+            // refresh the workouts list after insertion
+            fetchWorkouts()
         }
     }
 
@@ -71,9 +110,27 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         }
     }
 
-    fun updateWorkout(workout: Workout) {
+    private fun updateWorkout(workout: Workout) {
         CoroutineScope(Dispatchers.IO).launch {
             workoutRepository.updateWorkout(workout)
+
+            // refresh the workouts list after update
+            fetchWorkouts()
+        }
+    }
+
+    fun onReceiveExerciseSelected(exerciseSelected: Exercise) {
+        val workoutForSelectedDate = workoutForSelectedDate.value
+
+        if (workoutForSelectedDate == null) {
+            // Create a new workout and save with room
+            val newWorkout = getNewWorkoutFromExerciseSelected(exerciseSelected)
+            insertWorkout(newWorkout)
+        } else {
+            // Create and add a new ExerciseSession to the current Workout
+            val newExerciseSession = ExerciseSession(exerciseSelected)
+            workoutForSelectedDate.listOfExerciseSessions.add(newExerciseSession)
+            updateWorkout(workoutForSelectedDate)
         }
     }
 
