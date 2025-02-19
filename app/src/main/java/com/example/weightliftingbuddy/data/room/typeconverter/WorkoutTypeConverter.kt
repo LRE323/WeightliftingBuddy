@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.room.typeconverter
+package com.example.weightliftingbuddy.data.room.typeconverter
 
 import androidx.room.TypeConverter
 import com.example.weightliftingbuddy.data.models.ExerciseSession

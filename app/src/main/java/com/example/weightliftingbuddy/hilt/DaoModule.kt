@@ -1,10 +1,10 @@
 package com.example.weightliftingbuddy.hilt
 
-import com.example.weightliftingbuddy.room.dao.ExerciseDao
-import com.example.weightliftingbuddy.room.dao.ExerciseSessionDao
-import com.example.weightliftingbuddy.room.dao.ExerciseSetDao
-import com.example.weightliftingbuddy.room.dao.WorkoutDao
-import com.example.weightliftingbuddy.room.database.GeneralDatabase
+import com.example.weightliftingbuddy.data.room.dao.ExerciseDao
+import com.example.weightliftingbuddy.data.room.dao.ExerciseSessionDao
+import com.example.weightliftingbuddy.data.room.dao.ExerciseSetDao
+import com.example.weightliftingbuddy.data.room.dao.WorkoutDao
+import com.example.weightliftingbuddy.data.room.database.GeneralDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

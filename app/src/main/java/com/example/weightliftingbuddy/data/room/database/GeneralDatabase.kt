@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.room.database
+package com.example.weightliftingbuddy.data.room.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -7,12 +7,12 @@ import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.ExerciseSet
 import com.example.weightliftingbuddy.data.models.Workout
-import com.example.weightliftingbuddy.room.dao.ExerciseDao
-import com.example.weightliftingbuddy.room.dao.ExerciseSessionDao
-import com.example.weightliftingbuddy.room.dao.ExerciseSetDao
-import com.example.weightliftingbuddy.room.dao.WorkoutDao
-import com.example.weightliftingbuddy.room.typeconverter.ExerciseSessionTypeConverter
-import com.example.weightliftingbuddy.room.typeconverter.WorkoutTypeConverter
+import com.example.weightliftingbuddy.data.room.dao.ExerciseDao
+import com.example.weightliftingbuddy.data.room.dao.ExerciseSessionDao
+import com.example.weightliftingbuddy.data.room.dao.ExerciseSetDao
+import com.example.weightliftingbuddy.data.room.dao.WorkoutDao
+import com.example.weightliftingbuddy.data.room.typeconverter.ExerciseSessionTypeConverter
+import com.example.weightliftingbuddy.data.room.typeconverter.WorkoutTypeConverter
 
 @Database(
     entities = [Exercise::class, ExerciseSet::class, ExerciseSession::class, Workout::class],

@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.room.typeconverter
+package com.example.weightliftingbuddy.data.room.typeconverter
 
 import com.google.gson.Gson
 

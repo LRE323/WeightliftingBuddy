@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.room.dao
+package com.example.weightliftingbuddy.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

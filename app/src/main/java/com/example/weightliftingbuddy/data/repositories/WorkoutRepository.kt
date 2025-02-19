@@ -2,7 +2,7 @@ package com.example.weightliftingbuddy.data.repositories
 
 import android.util.Log
 import com.example.weightliftingbuddy.data.models.Workout
-import com.example.weightliftingbuddy.room.dao.WorkoutDao
+import com.example.weightliftingbuddy.data.room.dao.WorkoutDao
 import javax.inject.Inject
 
 class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) {
