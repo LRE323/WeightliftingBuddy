@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.adapters
+package com.example.weightliftingbuddy.views.adapters
 
 import android.view.LayoutInflater
 import android.view.View

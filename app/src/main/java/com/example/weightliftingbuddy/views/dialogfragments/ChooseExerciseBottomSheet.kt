@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
+import com.example.weightliftingbuddy.views.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.databinding.BottomSheetChooseExerciseBinding
 import com.example.weightliftingbuddy.data.models.Exercise

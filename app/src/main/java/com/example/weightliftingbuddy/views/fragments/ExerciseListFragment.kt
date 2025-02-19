@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightliftingbuddy.R
-import com.example.weightliftingbuddy.adapters.ExerciseListAdapter
+import com.example.weightliftingbuddy.views.adapters.ExerciseListAdapter
 import com.example.weightliftingbuddy.databinding.FragmentExerciseListBinding
 import com.example.weightliftingbuddy.views.dialogfragments.AddNewExerciseDialog
 import com.example.weightliftingbuddy.data.models.Exercise
