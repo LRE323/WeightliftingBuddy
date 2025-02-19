@@ -28,4 +28,6 @@
 <!--  ChooseExerciseToLogActivity  -->
     <string name="title_choose_exercise_to_log_activity">Choose an exercise to log</string>
 
+    <string name="rv_item_exercise_session_sets_logged">%1$s sets logged</string>
+
 </resources>
