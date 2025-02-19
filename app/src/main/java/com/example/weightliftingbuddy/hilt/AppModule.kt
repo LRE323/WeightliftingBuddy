@@ -2,8 +2,8 @@ package com.example.weightliftingbuddy.hilt
 
 import android.content.Context
 import androidx.room.Room
-import com.example.weightliftingbuddy.repositories.ExerciseRepository
-import com.example.weightliftingbuddy.repositories.WorkoutRepository
+import com.example.weightliftingbuddy.data.repositories.ExerciseRepository
+import com.example.weightliftingbuddy.data.repositories.WorkoutRepository
 import com.example.weightliftingbuddy.room.dao.ExerciseDao
 import com.example.weightliftingbuddy.room.dao.WorkoutDao
 import com.example.weightliftingbuddy.room.database.GeneralDatabase

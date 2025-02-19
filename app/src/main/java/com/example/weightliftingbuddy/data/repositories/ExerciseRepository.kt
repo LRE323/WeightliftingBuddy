@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.repositories
+package com.example.weightliftingbuddy.data.repositories
 
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.room.dao.ExerciseDao

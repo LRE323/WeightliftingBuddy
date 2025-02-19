@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.repositories
+package com.example.weightliftingbuddy.data.repositories
 
 import android.util.Log
 import com.example.weightliftingbuddy.data.models.Workout

@@ -7,7 +7,7 @@ import com.example.weightliftingbuddy.GeneralUtilities
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.Workout
-import com.example.weightliftingbuddy.repositories.WorkoutRepository
+import com.example.weightliftingbuddy.data.repositories.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
