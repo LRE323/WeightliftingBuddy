@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_layout_workout_date_area_wrapper" />
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/nsv_exercises_logged"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -48,15 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePageHeaderBorder">
 
-            <!-- This View should hold all Exercises that have been selected for this workout date -->
-            <LinearLayout
-                android:id="@+id/ll_selected_exercises"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp" />
-
-        </androidx.core.widget.NestedScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
             android:id="@+id/homePageNoWorkoutMessage"

@@ -5,8 +5,6 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,7 +13,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.weightliftingbuddy.GeneralUtilities
-import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.models.Exercise
@@ -130,14 +127,5 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     }
 
     private val onWorkoutForSelectedDateReceived = Observer<Workout?> { workout ->
-        workout?.listOfExerciseSessions?.forEach { currentExerciseSession ->
-            val exerciseView = layoutInflater.inflate(R.layout.layout_exercise_session_logged, null)
-            exerciseView.findViewById<TextView>(R.id.tv_exercise_name).text = currentExerciseSession.exercise?.exerciseName
-            binding?.apply {
-                llSelectedExercises.addView(exerciseView)
-                nsvExercisesLogged.visibility = VISIBLE
-                homePageNoWorkoutMessage.visibility = GONE
-            }
-        }
     }
 }
