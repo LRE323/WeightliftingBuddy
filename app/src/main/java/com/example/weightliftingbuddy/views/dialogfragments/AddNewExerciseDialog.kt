@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.dialogfragments
+package com.example.weightliftingbuddy.views.dialogfragments
 
 import android.content.Context
 import android.widget.Button

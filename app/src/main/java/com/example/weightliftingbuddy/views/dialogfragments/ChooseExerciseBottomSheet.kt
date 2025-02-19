@@ -1,4 +1,4 @@
-package com.example.weightliftingbuddy.dialogfragments
+package com.example.weightliftingbuddy.views.dialogfragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
