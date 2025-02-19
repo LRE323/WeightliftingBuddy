@@ -13,7 +13,7 @@ import com.example.weightliftingbuddy.models.Exercise
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /*
-TODO: Cannot use this class until I find out why onCreateViewHolder is not being called in the Adapter
+TODO: Delete this class
  */
 class ChooseExerciseBottomSheet(val exerciseList: List<Exercise>): BottomSheetDialogFragment() {
     private var binding: BottomSheetChooseExerciseBinding? = null
