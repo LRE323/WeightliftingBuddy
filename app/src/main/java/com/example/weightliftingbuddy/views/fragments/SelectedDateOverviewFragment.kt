@@ -16,14 +16,16 @@ import com.example.weightliftingbuddy.utils.GeneralUtilities
 import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.data.models.Exercise
+import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.Workout
 import com.example.weightliftingbuddy.data.viewmodels.SelectedWorkoutDateOverviewViewModel
+import com.example.weightliftingbuddy.views.adapters.ExerciseSessionAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
+class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, ExerciseSessionAdapter.ExerciseSessionAdapterCallback {
     private val viewModel: SelectedWorkoutDateOverviewViewModel by viewModels()
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
 
@@ -127,5 +129,13 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener {
     }
 
     private val onWorkoutForSelectedDateReceived = Observer<Workout?> { workout ->
+    }
+
+    override fun onClickExerciseSession(exerciseSession: ExerciseSession) {
+        // Do nothing for now
+    }
+
+    override fun onLongClickExerciseSession(exerciseSession: ExerciseSession) {
+        // Do nothing for now
     }
 }
