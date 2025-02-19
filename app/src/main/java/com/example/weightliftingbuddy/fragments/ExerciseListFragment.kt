@@ -2,11 +2,9 @@ package com.example.weightliftingbuddy.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnLongClickExerciseCallBack {
+class ExerciseListFragment : BaseFragment(), AddNewExerciseDialog.AddNewExerciseCallBack, ExerciseListAdapter.OnLongClickExerciseCallBack {
     private var binding: FragmentExerciseListBinding? = null
     private val viewModel: ExerciseListViewModel by viewModels()
 
@@ -31,29 +29,17 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
     private var recyclerViewExerciseList: RecyclerView? = null
     private var adapterExerciseList: ExerciseListAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentExerciseListBinding.inflate(layoutInflater)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return binding?.root
-    }
+    override fun initBinding() {
+        binding = FragmentExerciseListBinding.inflate(layoutInflater)    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        initObservers()
         viewModel.fetchExercises()
     }
 
     private fun initViews() {
         initRecyclerView()
-        setOnClickListeners()
     }
 
     private fun initRecyclerView() {
@@ -65,7 +51,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
         }
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         viewModel.apply {
             exerciseList.observe(viewLifecycleOwner) {
                 binding?.apply {
@@ -83,6 +69,14 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
             onDeleteExerciseSuccess.observe(viewLifecycleOwner, onDeleteExerciseObserver)
             onCreateNewExerciseSuccess.observe(viewLifecycleOwner, onCreateNewExerciseSuccessObserver)
         }
+    }
+
+    override fun setBindingNull() {
+        binding = null
+    }
+
+    override fun getBinding(): ViewDataBinding? {
+        return binding
     }
 
     private val onCreateNewExerciseSuccessObserver = Observer<Event<Exercise>> {
@@ -104,7 +98,7 @@ class ExerciseListFragment : Fragment(), AddNewExerciseDialog.AddNewExerciseCall
         }
     }
 
-    private fun setOnClickListeners() {
+    override fun setOnClickListeners() {
         binding?.apply {
             fabCreateExercise.setOnClickListener {
                 AddNewExerciseDialog(requireContext(), this@ExerciseListFragment).show()
