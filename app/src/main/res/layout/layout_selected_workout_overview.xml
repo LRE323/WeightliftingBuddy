@@ -54,6 +54,7 @@
 
         <TextView
             android:id="@+id/homePageNoWorkoutMessage"
+            android:visibility="gone"
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
