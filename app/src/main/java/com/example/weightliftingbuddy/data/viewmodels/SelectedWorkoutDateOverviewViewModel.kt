@@ -52,9 +52,8 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         selectedDate.value = calendar
 
         // find and set the workout for the selected date
-        _workoutList.value?.apply {
-            _workoutForSelectedDate.value = findWorkoutForSelectedDate(this, calendar.time)
-        }
+        _workoutForSelectedDate.value = findWorkoutForSelectedDate(_workoutList.value, calendar.time)
+
     }
 
 
