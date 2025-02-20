@@ -11,7 +11,7 @@ import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.databinding.RvItemExerciseSessionBinding
 
 class ExerciseSessionAdapter(
-    private val exerciseSessionList: List<ExerciseSession>,
+    private var exerciseSessionList: List<ExerciseSession>? = null,
     private val callback: ExerciseSessionAdapterCallback
 ) : RecyclerView.Adapter<ExerciseSessionAdapter.ExerciseSessionViewHolder>() {
 
@@ -25,17 +25,20 @@ class ExerciseSessionAdapter(
     }
 
     override fun getItemCount(): Int {
-        return exerciseSessionList.size
+        return exerciseSessionList?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ExerciseSessionViewHolder, position: Int) {
         val context = holder.itemView.context
-        val currentExerciseSession = exerciseSessionList[position]
-        val currentExercise = currentExerciseSession.exercise
+        val currentExerciseSession = exerciseSessionList?.get(position)
+        val currentExercise = currentExerciseSession?.exercise
 
         setExerciseNameText(currentExercise)
-        setNumberOfSetsText(currentExerciseSession, context)
-        setOnClickListeners(holder.itemView,currentExerciseSession)
+        if (currentExerciseSession != null) {
+            setNumberOfSetsText(currentExerciseSession, context)
+            setOnClickListeners(holder.itemView,currentExerciseSession)
+        }
+
     }
 
     private fun setOnClickListeners(
@@ -64,6 +67,12 @@ class ExerciseSessionAdapter(
         binding?.apply {
             tvExerciseName.text = exercise?.exerciseName
         }
+    }
+
+    fun updateList(newList: List<ExerciseSession>?) {
+        exerciseSessionList = newList
+        // TODO: Use DiffUtil
+        notifyDataSetChanged()
     }
 
     inner class ExerciseSessionViewHolder(binding: RvItemExerciseSessionBinding) : RecyclerView.ViewHolder(binding.root)

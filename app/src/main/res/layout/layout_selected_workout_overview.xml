@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+<!--  TODO: Add padding to the entire layout  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,7 +40,8 @@
             app:layout_constraintTop_toBottomOf="@id/ll_layout_workout_date_area_wrapper" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/nsv_exercises_logged"
+            android:padding="16dp"
+            android:id="@+id/rv_exercise_sessions"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="gone"

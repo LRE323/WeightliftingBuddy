@@ -12,13 +12,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.weightliftingbuddy.utils.GeneralUtilities
-import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivity
-import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.Workout
 import com.example.weightliftingbuddy.data.viewmodels.SelectedWorkoutDateOverviewViewModel
+import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
+import com.example.weightliftingbuddy.utils.GeneralUtilities
+import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.views.adapters.ExerciseSessionAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,7 @@ import java.util.Calendar
 class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, ExerciseSessionAdapter.ExerciseSessionAdapterCallback {
     private val viewModel: SelectedWorkoutDateOverviewViewModel by viewModels()
     private var binding: LayoutSelectedWorkoutOverviewBinding? = null
+    private var exerciseSessionAdapter: ExerciseSessionAdapter? = null
 
     private val chooseExerciseToLogResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -49,7 +51,16 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, Exercise
     }
 
     override fun initViews() {
-        // Nothing to do here
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        val workoutForSelectedDate = viewModel.getWorkoutForSelectedDate()
+        exerciseSessionAdapter = ExerciseSessionAdapter(workoutForSelectedDate?.listOfExerciseSessions, this)
+        binding?.rvExerciseSessions?.apply {
+            adapter = exerciseSessionAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     override fun setOnClickListeners() {
@@ -129,6 +140,16 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, Exercise
     }
 
     private val onWorkoutForSelectedDateReceived = Observer<Workout?> { workout ->
+        exerciseSessionAdapter?.updateList(workout?.listOfExerciseSessions)
+        binding?.apply {
+            if (workout != null) {
+                rvExerciseSessions.visibility = View.VISIBLE
+                homePageNoWorkoutMessage.visibility = View.GONE
+            } else {
+                rvExerciseSessions.visibility = View.GONE
+                homePageNoWorkoutMessage.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onClickExerciseSession(exerciseSession: ExerciseSession) {
