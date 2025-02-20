@@ -58,7 +58,10 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
     }
 
 
-    private fun findWorkoutForSelectedDate(workoutList: List<Workout>, selectedDate: Date): Workout? {
+    private fun findWorkoutForSelectedDate(workoutList: List<Workout>?, selectedDate: Date?): Workout? {
+        if (workoutList == null || selectedDate == null) {
+            return null
+        }
         val formattedSelectedDate = GeneralUtilities.getFormattedWorkoutDate(selectedDate)
         workoutList.forEach {
             val formattedCurrentIterationDate = GeneralUtilities.getFormattedWorkoutDate(it.workoutDate)
@@ -80,6 +83,8 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         workoutDateToSet?.apply {
             add(Calendar.DAY_OF_MONTH, by)
             selectedDate.postValue(this)
+            // Update the Workout for the selected date
+            _workoutForSelectedDate.postValue(findWorkoutForSelectedDate(_workoutList.value, this.time))
         }
     }
 
