@@ -3,6 +3,8 @@ package com.example.weightliftingbuddy.data.repositories
 import android.util.Log
 import com.example.weightliftingbuddy.data.models.Workout
 import com.example.weightliftingbuddy.data.room.dao.WorkoutDao
+import com.example.weightliftingbuddy.utils.GeneralUtilities
+import java.util.Date
 import javax.inject.Inject
 
 class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) {
@@ -32,6 +34,28 @@ class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) 
     suspend fun updateWorkout(workout: Workout) {
         Log.i(LOGTAG, "Updating the Workout: $workout")
         workoutDao.updateWorkout(workout)
+    }
+
+    /**
+     * Searches the passed List for a Workout that has the passed Date
+     * If no Workout is found, null will be returned.
+     *
+     * @param workoutList The List that will be searched
+     * @param selectedDate The Date that will be looked for
+     */
+    fun findWorkout(workoutList: List<Workout>?, selectedDate: Date?): Workout? {
+        if (workoutList == null || selectedDate == null) {
+            return null
+        }
+        val formattedSelectedDate = GeneralUtilities.getFormattedWorkoutDate(selectedDate)
+        workoutList.forEach {
+            val formattedCurrentIterationDate = GeneralUtilities.getFormattedWorkoutDate(it.workoutDate)
+
+            if (formattedSelectedDate == formattedCurrentIterationDate) {
+                return it
+            }
+        }
+        return null
     }
 
 }

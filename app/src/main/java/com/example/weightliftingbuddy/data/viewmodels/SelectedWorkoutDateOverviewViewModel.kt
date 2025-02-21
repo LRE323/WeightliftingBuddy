@@ -3,7 +3,6 @@ package com.example.weightliftingbuddy.data.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weightliftingbuddy.utils.GeneralUtilities
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.Workout
@@ -52,24 +51,8 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         selectedDate.value = calendar
 
         // find and set the workout for the selected date
-        _workoutForSelectedDate.value = findWorkoutForSelectedDate(_workoutList.value, calendar.time)
+        _workoutForSelectedDate.value = workoutRepository.findWorkout(_workoutList.value, calendar.time)
 
-    }
-
-
-    private fun findWorkoutForSelectedDate(workoutList: List<Workout>?, selectedDate: Date?): Workout? {
-        if (workoutList == null || selectedDate == null) {
-            return null
-        }
-        val formattedSelectedDate = GeneralUtilities.getFormattedWorkoutDate(selectedDate)
-        workoutList.forEach {
-            val formattedCurrentIterationDate = GeneralUtilities.getFormattedWorkoutDate(it.workoutDate)
-
-            if (formattedSelectedDate == formattedCurrentIterationDate) {
-                return it
-            }
-        }
-        return null
     }
 
     private fun getNewWorkoutFromExerciseSelected(exerciseSelected: Exercise, workoutDate: Date = Calendar.getInstance().time): Workout {
@@ -82,8 +65,10 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         workoutDateToSet?.apply {
             add(Calendar.DAY_OF_MONTH, by)
             selectedDate.postValue(this)
+
             // Update the Workout for the selected date
-            _workoutForSelectedDate.postValue(findWorkoutForSelectedDate(_workoutList.value, this.time))
+            val workout = workoutRepository.findWorkout(_workoutList.value, this.time)
+            _workoutForSelectedDate.postValue(workout)
         }
     }
 
@@ -94,7 +79,8 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
 
             val selectedDate = selectedDate.value
             if (selectedDate != null) {
-                _workoutForSelectedDate.postValue(findWorkoutForSelectedDate(workoutList, selectedDate.time))
+                val workout = workoutRepository.findWorkout(workoutList, selectedDate.time)
+                _workoutForSelectedDate.postValue(workout)
             }
         }
     }
