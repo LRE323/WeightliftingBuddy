@@ -87,7 +87,7 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
 
     private fun insertWorkout(workout: Workout) {
         CoroutineScope(Dispatchers.IO).launch {
-            workoutRepository.insertWorkout(workout)
+            workoutRepository.requestWorkoutInsertion(workout)
 
             // refresh the workouts list after insertion
             fetchWorkouts()

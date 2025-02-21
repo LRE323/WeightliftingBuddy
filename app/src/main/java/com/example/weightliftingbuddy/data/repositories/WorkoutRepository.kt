@@ -25,7 +25,7 @@ class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) 
         return fetchedWorkoutList
     }
 
-    suspend fun insertWorkout(workout: Workout) {
+    suspend fun requestWorkoutInsertion(workout: Workout) {
         if (shouldInsertWorkout(workout)) {
             Log.i(LOGTAG, "Inserting the Workout: $workout")
             workoutDao.insertWorkout(workout)
