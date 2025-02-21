@@ -8,13 +8,21 @@ import java.util.Date
 import javax.inject.Inject
 
 class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) {
+    private var workoutList: MutableList<Workout> = mutableListOf()
 
     companion object {
         private const val LOGTAG = "WorkoutRepository"
     }
 
     suspend fun fetchWorkouts(): List<Workout> {
-        return workoutDao.fetchWorkouts()
+        val fetchedWorkoutList = workoutDao.fetchWorkouts()
+        workoutList.apply {
+            // Clear the existing workoutList
+            clear()
+            // Add all the new Workouts from fetchedWorkoutList
+            addAll(fetchedWorkoutList)
+        }
+        return fetchedWorkoutList
     }
 
     suspend fun insertWorkout(workout: Workout) {
