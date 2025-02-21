@@ -26,13 +26,28 @@ class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) 
     }
 
     suspend fun insertWorkout(workout: Workout) {
-        /*
-        TODO: Refactor insertion logic
-        Add logic that will prevent adding the passed Workout if the workoutDate of the passed
-        Workout already has a Workout.
-         */
-        Log.i(LOGTAG, "Inserting the Workout: $workout")
-        workoutDao.insertWorkout(workout)
+        if (shouldInsertWorkout(workout)) {
+            Log.i(LOGTAG, "Inserting the Workout: $workout")
+            workoutDao.insertWorkout(workout)
+        } else {
+            // Do not insert workout
+            Log.i(LOGTAG, "Workout insertion aborted")
+        }
+    }
+
+    /**
+     * Checks if the passed Workout should be inserted.
+     * If the passed Workout's workoutDate has the same Date as a Workout's workoutDate that is
+     * saved in Room, the passed Workout should not be inserted.
+     * Essentially, there should not be two Workouts saved in Room with the same Date because we
+     * want to limit the number of Workouts to one per Date.
+     */
+    private fun shouldInsertWorkout(workout: Workout): Boolean {
+        // Try to find a Workout with the same workoutDate as the passed workout
+        val workoutSavedInRoom = findWorkout(this.workoutList, workout.workoutDate)
+
+        // If workoutSavedInRoom is null, the insertion can be done.
+        return workoutSavedInRoom == null
     }
 
     suspend fun deleteWorkout(workout: Workout) {
