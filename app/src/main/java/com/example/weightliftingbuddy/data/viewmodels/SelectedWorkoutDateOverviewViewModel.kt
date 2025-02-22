@@ -109,7 +109,7 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         if (exerciseSessionList.contains(exerciseSessionQueuedForDeletion)) {
 
             exerciseSessionList.forEach {
-                if (it.id == exerciseSessionQueuedForDeletion?.id) {
+                if (it == exerciseSessionQueuedForDeletion) {
                     indexToRemove = exerciseSessionList.indexOf(it)
                 }
             }
