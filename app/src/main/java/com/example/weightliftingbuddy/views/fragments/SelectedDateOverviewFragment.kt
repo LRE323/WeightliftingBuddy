@@ -145,13 +145,14 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, Exercise
 
     private val onWorkoutForSelectedDateReceived = Observer<Workout?> { workout ->
         exerciseSessionAdapter?.updateList(workout?.listOfExerciseSessions)
+        val emptyExerciseSessionList = workout?.listOfExerciseSessions.isNullOrEmpty()
         binding?.apply {
-            if (workout != null) {
-                rvExerciseSessions.visibility = View.VISIBLE
-                homePageNoWorkoutMessage.visibility = View.GONE
-            } else {
+            if (workout == null || emptyExerciseSessionList) {
                 rvExerciseSessions.visibility = View.GONE
                 homePageNoWorkoutMessage.visibility = View.VISIBLE
+            } else {
+                rvExerciseSessions.visibility = View.VISIBLE
+                homePageNoWorkoutMessage.visibility = View.GONE
             }
         }
     }
