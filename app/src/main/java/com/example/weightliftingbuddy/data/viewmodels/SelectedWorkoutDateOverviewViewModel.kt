@@ -109,18 +109,28 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         }
     }
 
+    /**
+     * Runs ViewModel logic after the user selects a Exercise to log.
+     */
     fun onReceiveExerciseSelected(exerciseSelected: Exercise) {
-        val workoutForSelectedDate = workoutForSelectedDate.value
+        // Do nothing if selectedDate is null.
+        val selectedDate = selectedDate.value?.time ?: return
 
-        if (workoutForSelectedDate == null) {
-            // Create a new workout and save with room
-            val newWorkout = getNewWorkoutFromExerciseSelected(exerciseSelected)
-            insertWorkout(newWorkout)
-        } else {
-            // Create and add a new ExerciseSession to the current Workout
+        if (workoutRepository.dateHasWorkout(selectedDate)) {
+            // Create a new ExerciseSession for the selected Exercise.
             val newExerciseSession = ExerciseSession(exerciseSelected)
-            workoutForSelectedDate.listOfExerciseSessions.add(newExerciseSession)
-            updateWorkout(workoutForSelectedDate)
+            // Get the Workout for the currently selected Date.
+            val workoutForSelectedDate = workoutForSelectedDate.value
+            if (workoutForSelectedDate != null) {
+                // Add the new ExerciseSession to the Workout for the selected Date.
+                workoutForSelectedDate.listOfExerciseSessions.add(newExerciseSession)
+                //  Update the Workout in Room.
+                updateWorkout(workoutForSelectedDate)
+            }
+        } else {
+            // Create and add a new Workout.
+            val newWorkout = getNewWorkoutFromExerciseSelected(exerciseSelected, selectedDate)
+            insertWorkout(newWorkout)
         }
     }
 
