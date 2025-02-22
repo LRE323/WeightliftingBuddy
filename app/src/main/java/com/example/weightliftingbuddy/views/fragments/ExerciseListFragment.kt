@@ -125,8 +125,8 @@ class ExerciseListFragment : BaseFragment(), AddNewExerciseDialog.AddNewExercise
             val exerciseToDeleteName = viewModel.exerciseToDelete?.exerciseName
             setTitle(getString(R.string.confirm_delete_exercise_dialog_title))
             setMessage(exerciseToDeleteName)
-            setPositiveButton(getString(R.string.confirm_delete_exercise_dialog_positive_button), onConfirmDeleteExercise)
-            setNegativeButton(getString(R.string.confirm_delete_exercise_dialog_negative_button), onCancelDeleteExercise)
+            setPositiveButton(getString(R.string.delete), onConfirmDeleteExercise)
+            setNegativeButton(getString(R.string.cancel), onCancelDeleteExercise)
         }
         return dialogBuilder.create()
     }

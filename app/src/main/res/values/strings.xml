@@ -22,12 +22,13 @@
     <string name="add_new_exercise_dialog_name_input_error">Please enter an exercise name.</string>
 <!--  ConfirmDeleteExerciseDialog  -->
     <string name="confirm_delete_exercise_dialog_title">Are you sure you want to delete this exercise?</string>
-    <string name="confirm_delete_exercise_dialog_positive_button">Delete</string>
-    <string name="confirm_delete_exercise_dialog_negative_button">Cancel</string>
 
 <!--  ChooseExerciseToLogActivity  -->
     <string name="title_choose_exercise_to_log_activity">Choose an exercise to log</string>
 
     <string name="rv_item_exercise_session_sets_logged">%1$s sets logged</string>
+    <string name="exercise_session_delete_confirmation_dialog_title">Are you sure you want to delete %1$s from this workout?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

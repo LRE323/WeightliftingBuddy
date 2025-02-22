@@ -3,16 +3,19 @@ package com.example.weightliftingbuddy.views.fragments
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weightliftingbuddy.R
 import com.example.weightliftingbuddy.data.models.Exercise
 import com.example.weightliftingbuddy.data.models.ExerciseSession
 import com.example.weightliftingbuddy.data.models.Workout
@@ -21,6 +24,7 @@ import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewB
 import com.example.weightliftingbuddy.utils.GeneralUtilities
 import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivity
 import com.example.weightliftingbuddy.views.adapters.ExerciseSessionAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -157,6 +161,29 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, Exercise
     }
 
     override fun onLongClickExerciseSession(exerciseSession: ExerciseSession) {
-        // Do nothing for now
+        viewModel.exerciseSessionQueuedForDeletion = exerciseSession
+        getConfirmDeleteExerciseSessionDialog(exerciseSession).show()
+    }
+
+    private fun getConfirmDeleteExerciseSessionDialog(exerciseSessionToDelete: ExerciseSession): AlertDialog {
+        val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
+        dialogBuilder.apply {
+            val exerciseToDeleteName = exerciseSessionToDelete.exercise?.exerciseName
+            setTitle(getString(R.string.exercise_session_delete_confirmation_dialog_title, exerciseToDeleteName))
+            setPositiveButton(getString(R.string.delete), onConfirmDeleteExerciseSessionFromWorkout)
+            setNegativeButton(getString(R.string.cancel), onCancelDeleteExerciseSessionFromWorkout)
+        }
+        return dialogBuilder.create()
+    }
+
+    private val onConfirmDeleteExerciseSessionFromWorkout = DialogInterface.OnClickListener{ _, _ ->
+        val workoutForSelectedDate = viewModel.getWorkoutForSelectedDate()
+        if (workoutForSelectedDate != null) {
+            viewModel.deleteExerciseSessionFromWorkout(workoutForSelectedDate)
+        }
+    }
+
+    private val onCancelDeleteExerciseSessionFromWorkout = DialogInterface.OnClickListener{ _, _ ->
+        viewModel.exerciseSessionQueuedForDeletion = null
     }
 }

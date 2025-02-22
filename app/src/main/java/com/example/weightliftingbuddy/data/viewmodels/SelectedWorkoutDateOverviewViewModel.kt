@@ -33,6 +33,7 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
      */
     private val _workoutList: MutableLiveData<List<Workout>> = MutableLiveData()
     val workoutList: LiveData<List<Workout>> get() = _workoutList
+    var exerciseSessionQueuedForDeletion: ExerciseSession? = null
 
     init {
         // Set the value of liveDataSelectedDate to today's date by default.
@@ -98,6 +99,28 @@ class SelectedWorkoutDateOverviewViewModel @Inject constructor (private val work
         CoroutineScope(Dispatchers.IO).launch {
             workoutRepository.deleteWorkout(workout)
         }
+    }
+
+    fun deleteExerciseSessionFromWorkout(workout: Workout) {
+        val exerciseSessionList = workout.listOfExerciseSessions
+        var indexToRemove: Int? = null
+
+        // Check if the ExerciseSession exists in the Workout.
+        if (exerciseSessionList.contains(exerciseSessionQueuedForDeletion)) {
+
+            exerciseSessionList.forEach {
+                if (it.id == exerciseSessionQueuedForDeletion?.id) {
+                    indexToRemove = exerciseSessionList.indexOf(it)
+                }
+            }
+            indexToRemove?.apply {
+                // Remove the ExerciseSession from the Workout.
+                exerciseSessionList.remove(exerciseSessionList[this])
+                // Update the Workout in Room.
+                updateWorkout(workout)
+            }
+        }
+        exerciseSessionQueuedForDeletion = null
     }
 
     private fun updateWorkout(workout: Workout) {
