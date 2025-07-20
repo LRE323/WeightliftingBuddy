@@ -5,10 +5,12 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
@@ -23,6 +25,7 @@ import com.example.weightliftingbuddy.data.viewmodels.SelectedWorkoutDateOvervie
 import com.example.weightliftingbuddy.databinding.LayoutSelectedWorkoutOverviewBinding
 import com.example.weightliftingbuddy.utils.GeneralUtilities
 import com.example.weightliftingbuddy.views.activities.ChooseExerciseToLogActivity
+import com.example.weightliftingbuddy.views.activities.LogExerciseSessionActivity
 import com.example.weightliftingbuddy.views.adapters.ExerciseSessionAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -158,7 +161,12 @@ class SelectedDateOverviewFragment : BaseFragment(), OnDateSetListener, Exercise
     }
 
     override fun onClickExerciseSession(exerciseSession: ExerciseSession) {
-        // Do nothing for now
+        val bundle = Bundle().apply {
+            putParcelable(LogExerciseSessionActivity.EXERCISE_TO_LOG_BUNDLE_KEY, exerciseSession)
+        }
+        val intent = Intent(context, LogExerciseSessionActivity::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
     }
 
     override fun onLongClickExerciseSession(exerciseSession: ExerciseSession) {
